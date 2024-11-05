@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\hsba;
+use App\Models\Hsba;
 use App\Http\Requests\StorehsbaRequest;
 use App\Http\Requests\UpdatehsbaRequest;
 
@@ -14,7 +14,7 @@ class HsbaController extends Controller
     // Hiển thị danh sách hồ sơ bệnh án
     public function index()
     {
-        $records = MedicalRecord::with('patient')->get();
+        $records = Hsba::with('patient')->get();
         return response()->json($records);
     }
 
@@ -31,14 +31,14 @@ class HsbaController extends Controller
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        $record = MedicalRecord::create($request->all());
+        $record = Hsba::create($request->all());
         return response()->json($record, 201);
     }
 
     // Hiển thị thông tin một hồ sơ bệnh án cụ thể
     public function show($id)
     {
-        $record = MedicalRecord::with('patient')->findOrFail($id);
+        $record = Hsba::with('patient')->findOrFail($id);
         return response()->json($record);
     }
 
@@ -54,7 +54,7 @@ class HsbaController extends Controller
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        $record = MedicalRecord::findOrFail($id);
+        $record = Hsba::findOrFail($id);
         $record->update($request->all());
         return response()->json($record);
     }
@@ -62,7 +62,7 @@ class HsbaController extends Controller
     // Xóa hồ sơ bệnh án
     public function destroy($id)
     {
-        $record = MedicalRecord::findOrFail($id);
+        $record = Hsba::findOrFail($id);
         $record->delete();
         return response()->json(['message' => 'Medical record deleted successfully']);
     }

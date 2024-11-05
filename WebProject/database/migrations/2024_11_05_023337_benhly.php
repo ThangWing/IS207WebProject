@@ -12,6 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('benhly', function (Blueprint $table) {
+            $table->increments('mabl'); // Primary Key
+            $table->string('tenbl', 200); // Tên bệnh lý
+        });
+
+
     }
 
     /**
@@ -20,5 +26,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('benhly');
     }
 };

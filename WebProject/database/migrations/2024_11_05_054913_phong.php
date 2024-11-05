@@ -12,6 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('phong', function (Blueprint $table) {
+            $table->increments('maphg'); // Primary Key
+            $table->string('vitri', 200); 
+            $table->string('loaiphong',100);
+            $table->unsignedInteger('makhoa');
+
+            $table->foreign('makhoa')->references('makhoa')->on('khoa')->onDelete('cascade');
+        });
     }
 
     /**
@@ -20,5 +28,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('phong');
     }
 };

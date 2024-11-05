@@ -7,4 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Benhnhan extends Model
 {
     //
+    use HasFactory;
+
+    protected $table = 'benhnhan';
+
+    protected $primaryKey = 'mabn';
+
+    protected $fillable = [
+        'tenbn',
+        'ngsinh',
+        'gioitinh',
+        'sdt',
+        'diachi',
+        'ghichu'
+    ];
 }

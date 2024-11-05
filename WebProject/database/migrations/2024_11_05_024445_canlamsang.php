@@ -12,6 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('canls', function (Blueprint $table) {
+            $table->increments('macls'); // Primary Key
+            $table->string('tencls', 200); // Tên cận lâm sàng
+            $table->decimal('gia',10,2);
+        });
     }
 
     /**
@@ -20,5 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('canls');
     }
 };

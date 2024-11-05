@@ -12,6 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('thuoc', function (Blueprint $table) {
+            $table->increments('mathuoc'); // Primary Key
+            $table->string('tenthuoc', 200); // Tên bệnh lý
+            $table->int('soluong');
+            $table->string('donvi',100);
+            $table->decimal('dongia',10,2);
+            $table->string('ghichu',200);
+        });
     }
 
     /**
@@ -20,5 +28,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('thuoc');
     }
 };

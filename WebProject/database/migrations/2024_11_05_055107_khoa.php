@@ -12,6 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::create('khoa', function (Blueprint $table) {
+            $table->increments('makhoa'); // Primary Key
+            $table->string('tenkhoa', 200); // Tên khoa
+            $table->unsignedInteger('trgkhoa')->nullable();
+        });
     }
 
     /**
@@ -20,5 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('khoa');
     }
 };
