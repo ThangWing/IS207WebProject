@@ -18,11 +18,11 @@ class HsbaController extends Controller
         return response()->json($records);
     }
 
-    // Tạo mới hồ sơ bệnh án
+    // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
     public function store(Request $request)
     {
         $request->validate([
-            'mabn' => 'required|exists:patients,mabn',
+            'mabn' => 'required|exists:benhnhan,mabn', // Xác nhận mã bệnh nhân tồn tại
             'mabl' => 'required|integer',
             'ngnv' => 'required|date',
             'ngxv' => 'nullable|date',
@@ -31,19 +31,32 @@ class HsbaController extends Controller
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        $record = Hsba::create($request->all());
+        // Tìm bệnh nhân theo mã bệnh nhân
+        $patient = Benhnhan::findOrFail($request->mabn);
+
+        // Tạo hồ sơ bệnh án mới
+        $record = Hsba::create([
+            'mabn' => $patient->mabn,
+            'mabl' => $request->mabl,
+            'ngnv' => $request->ngnv,
+            'ngxv' => $request->ngxv,
+            'kqdt' => $request->kqdt,
+            'nhapvien' => $request->nhapvien,
+            'ghichu' => $request->ghichu
+        ]);
+
         return response()->json($record, 201);
     }
 
-    // Hiển thị thông tin một hồ sơ bệnh án cụ thể
-    public function show($id)
+    // Hiển thị thông tin chi tiết của một hồ sơ bệnh án cụ thể
+    public function show($mabn, $maba)
     {
-        $record = Hsba::with('patient')->findOrFail($id);
+        $record = Hsba::where('mabn', $mabn)->where('maba', $maba)->with('patient')->firstOrFail();
         return response()->json($record);
     }
 
     // Cập nhật thông tin hồ sơ bệnh án
-    public function update(Request $request, $id)
+    public function update(Request $request, $mabn, $maba)
     {
         $request->validate([
             'mabl' => 'sometimes|required|integer',
@@ -54,16 +67,20 @@ class HsbaController extends Controller
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        $record = Hsba::findOrFail($id);
+        // Tìm hồ sơ bệnh án với mã bệnh nhân và mã hồ sơ bệnh án
+        $record = Hsba::where('mabn', $mabn)->where('maba', $maba)->firstOrFail();
         $record->update($request->all());
+
         return response()->json($record);
     }
 
     // Xóa hồ sơ bệnh án
-    public function destroy($id)
+    public function destroy($mabn, $maba)
     {
-        $record = Hsba::findOrFail($id);
+        // Tìm hồ sơ bệnh án với mã bệnh nhân và mã hồ sơ bệnh án
+        $record = Hsba::where('mabn', $mabn)->where('maba', $maba)->firstOrFail();
         $record->delete();
+
         return response()->json(['message' => 'Medical record deleted successfully']);
     }
 }

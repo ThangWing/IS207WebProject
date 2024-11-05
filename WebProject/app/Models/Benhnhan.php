@@ -21,4 +21,9 @@ class Benhnhan extends Model
         'diachi',
         'ghichu'
     ];
+
+    public function hsbas()
+    {
+        return $this->hasMany(Hsba::class, 'mabn');
+    }
 }

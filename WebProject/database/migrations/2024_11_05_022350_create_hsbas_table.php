@@ -71,9 +71,11 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('hsbas');
-        Schema::dropIfExists('hsbas');
-        Schema::dropIfExists('hsbas');
-        Schema::dropIfExists('hsbas');
+        Schema::dropIfExists('hsba');
+        Schema::dropIfExists('ctba');
+        Schema::dropIfExists('donthuoc');
+        Schema::dropIfExists('ctdt');
+        Schema::dropIfExists('ctcls');
+        Schema::dropIfExists('ctnhapvien');
     }
 };
