@@ -15,10 +15,27 @@ return new class extends Migration
         Schema::create('thuoc', function (Blueprint $table) {
             $table->increments('mathuoc'); // Primary Key
             $table->string('tenthuoc', 200); // Tên bệnh lý
-            $table->int('soluong');
+            $table->integer('soluong');
             $table->string('donvi',100);
             $table->decimal('dongia',10,2);
             $table->string('ghichu',200);
+        });
+
+        Schema::create('donthuoc', function (Blueprint $table) {
+            $table->increments('madt');
+            $table->unsignedInteger('maba');
+            $table->string('ghichu', 200);
+            $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
+        });
+
+        Schema::create('ctdt', function (Blueprint $table) {
+            $table->unsignedInteger('madt');
+            $table->unsignedInteger('mathuoc');
+            $table->integer('soluong');
+            $table->primary(['madt', 'mathuoc']);
+
+            $table->foreign('madt')->references('madt')->on('donthuoc')->onDelete('cascade');
+            $table->foreign('mathuoc')->references('mathuoc')->on('thuoc')->onDelete('cascade');
         });
     }
 
@@ -29,5 +46,7 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('thuoc');
+        Schema::dropIfExists('ctdt');
+        Schema::dropIfExists('donthuoc');
     }
 };

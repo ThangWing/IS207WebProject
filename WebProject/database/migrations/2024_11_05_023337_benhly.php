@@ -17,7 +17,14 @@ return new class extends Migration
             $table->string('tenbl', 200); // Tên bệnh lý
         });
 
+        Schema::create('ctba', function (Blueprint $table) {
+            $table->unsignedInteger('maba');
+            $table->unsignedInteger('mabl');
+            $table->primary(['maba', 'mabl']);
 
+            $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
+            $table->foreign('mabl')->references('mabl')->on('benhly')->onDelete('cascade');
+        });
     }
 
     /**
@@ -27,5 +34,6 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('benhly');
+        Schema::dropIfExists('ctba');
     }
 };

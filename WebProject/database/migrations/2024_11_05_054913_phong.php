@@ -11,6 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('khoa', function (Blueprint $table) {
+            $table->increments('makhoa'); // Primary Key
+            $table->string('tenkhoa', 200); // Tên khoa
+            $table->unsignedInteger('trgkhoa')->nullable();
+        });
+
         //
         Schema::create('phong', function (Blueprint $table) {
             $table->increments('maphg'); // Primary Key
@@ -19,6 +25,17 @@ return new class extends Migration
             $table->unsignedInteger('makhoa');
 
             $table->foreign('makhoa')->references('makhoa')->on('khoa')->onDelete('cascade');
+        });
+
+        Schema::create('ctnhapvien', function (Blueprint $table) {
+            $table->unsignedInteger('maba');
+            $table->unsignedInteger('maphg');
+            $table->primary(['maba', 'maphg']);
+            $table->date('ngnv')->nullable(); // Ngày nhập viện
+            $table->date('ngxv')->nullable(); // Ngày xuất viện
+            $table->string('loaidv');
+            $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
+            $table->foreign('maphg')->references('maphg')->on('phong')->onDelete('cascade');
         });
     }
 
@@ -29,5 +46,7 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('phong');
+        Schema::dropIfExists('ctnhapvien');
+        Schema::dropIfExists('khoa');
     }
 };

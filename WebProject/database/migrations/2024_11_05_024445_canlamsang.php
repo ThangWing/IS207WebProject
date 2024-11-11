@@ -17,6 +17,15 @@ return new class extends Migration
             $table->string('tencls', 200); // Tên cận lâm sàng
             $table->decimal('gia',10,2);
         });
+
+        Schema::create('ctcls', function (Blueprint $table) {
+            $table->unsignedInteger('maba');
+            $table->unsignedInteger('macls');
+            $table->primary(['maba', 'macls']);
+
+            $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
+            $table->foreign('macls')->references('macls')->on('canls')->onDelete('cascade');
+        });
     }
 
     /**
@@ -26,5 +35,6 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('canls');
+        Schema::dropIfExists('ctcls');
     }
 };
