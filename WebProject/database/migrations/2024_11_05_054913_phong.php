@@ -18,24 +18,22 @@ return new class extends Migration
         });
 
         //
-        Schema::create('phong', function (Blueprint $table) {
-            $table->increments('maphg'); // Primary Key
+        Schema::create('phongbenh', function (Blueprint $table) {
+            $table->increments('mapb'); // Primary Key
             $table->string('vitri', 200); 
-            $table->string('loaiphong',100);
+            $table->string('loaidv',100);
             $table->unsignedInteger('makhoa');
-
             $table->foreign('makhoa')->references('makhoa')->on('khoa')->onDelete('cascade');
         });
 
-        Schema::create('ctnhapvien', function (Blueprint $table) {
+        Schema::create('nhapvien', function (Blueprint $table) {
             $table->unsignedInteger('maba');
-            $table->unsignedInteger('maphg');
-            $table->primary(['maba', 'maphg']);
+            $table->unsignedInteger('mapb');
+            $table->primary(['maba', 'mapb']);
             $table->date('ngnv')->nullable(); // Ngày nhập viện
             $table->date('ngxv')->nullable(); // Ngày xuất viện
-            $table->string('loaidv');
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
-            $table->foreign('maphg')->references('maphg')->on('phong')->onDelete('cascade');
+            $table->foreign('mapb')->references('mapb')->on('phongbenh')->onDelete('cascade');
         });
     }
 
@@ -45,8 +43,8 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::dropIfExists('phong');
-        Schema::dropIfExists('ctnhapvien');
+        Schema::dropIfExists('phongbenh');
+        Schema::dropIfExists('nhapvien');
         Schema::dropIfExists('khoa');
     }
 };

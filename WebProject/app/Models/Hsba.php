@@ -10,7 +10,7 @@ class Hsba extends Model
     use HasFactory;
 
     protected $table = 'hsba';
-
+    
     protected $fillable = [
         'mabn',
         'nhapvien',
