@@ -13,7 +13,6 @@ class Ctdt extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'madt',
         'mathuoc',
         'soluong',
     ];

@@ -24,9 +24,6 @@ class HsbaController extends Controller
         $request->validate([
             'mabn' => 'required|exists:benhnhan,mabn', // Xác nhận mã bệnh nhân tồn tại
             'mabl' => 'required|integer',
-            'ngnv' => 'required|date',
-            'ngxv' => 'nullable|date',
-            'kqdt' => 'required|string|max:100',
             'nhapvien' => 'required|boolean',
             'ghichu' => 'nullable|string|max:200',
         ]);
@@ -37,10 +34,6 @@ class HsbaController extends Controller
         // Tạo hồ sơ bệnh án mới
         $record = Hsba::create([
             'mabn' => $patient->mabn,
-            'mabl' => $request->mabl,
-            'ngnv' => $request->ngnv,
-            'ngxv' => $request->ngxv,
-            'kqdt' => $request->kqdt,
             'nhapvien' => $request->nhapvien,
             'ghichu' => $request->ghichu
         ]);
@@ -59,10 +52,6 @@ class HsbaController extends Controller
     public function update(Request $request, $mabn, $maba)
     {
         $request->validate([
-            'mabl' => 'sometimes|required|integer',
-            'ngnv' => 'sometimes|required|date',
-            'ngxv' => 'nullable|date',
-            'kqdt' => 'sometimes|required|string|max:100',
             'nhapvien' => 'sometimes|required|boolean',
             'ghichu' => 'nullable|string|max:200',
         ]);

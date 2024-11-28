@@ -12,8 +12,6 @@ class Donthuoc extends Model
     protected $table = 'donthuoc';
 
     protected $fillable = [
-        'madt',
-        'maba',
         'ghichu',
     ];
 

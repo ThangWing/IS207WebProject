@@ -18,13 +18,20 @@ return new class extends Migration
             $table->decimal('gia',10,2);
         });
 
+        Schema::create('phongchucnang', function (Blueprint $table) {
+            $table->increments('mapcn'); // Primary Key
+            $table->unsignedInteger('macls'); 
+            $table->string('vitri',200); 
+        });
+
         Schema::create('ctcls', function (Blueprint $table) {
             $table->unsignedInteger('maba');
-            $table->unsignedInteger('macls');
-            $table->primary(['maba', 'macls']);
+            $table->unsignedInteger('mapcn');
+            $table->string('ketqua',300);
+            $table->primary(['maba', 'mapcn']);
 
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
-            $table->foreign('macls')->references('macls')->on('canls')->onDelete('cascade');
+            $table->foreign('mapcn')->references('mapcn')->on('phongchucnang')->onDelete('cascade');
         });
     }
 

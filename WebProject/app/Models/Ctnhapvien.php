@@ -9,11 +9,9 @@ class Ctnhapvien extends Model
     //
     use HasFactory;
 
-    protected $table = 'ctnhapvien';
-    public $timestamps = false;
+    protected $table = 'nhapvien';
 
     protected $fillable = [
-        'maba',
         'maphg',
         'ngnv',
         'ngxv',

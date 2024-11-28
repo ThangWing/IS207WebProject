@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('hsba', function (Blueprint $table) {
             $table->increments('maba'); // Primary Key
             $table->unsignedInteger('mabn')->index(); // Foreign Key liên kết với bảng patients
-            $table->boolean('nhapvien'); // Trạng thái nhập viện
+            $table->boolean('nhapvien')->default(false); // Trạng thái nhập viện
             $table->string('ghichu', 200)->nullable(); // Ghi chú
-            
             // Thiết lập khóa ngoại
             $table->foreign('mabn')->references('mabn')->on('benhnhan')->onDelete('cascade');
             $table->timestamps();

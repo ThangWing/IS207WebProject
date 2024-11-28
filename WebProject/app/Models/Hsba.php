@@ -10,9 +10,9 @@ class Hsba extends Model
     use HasFactory;
 
     protected $table = 'hsba';
-    
+    protected $primaryKey = 'maba';
+
     protected $fillable = [
-        'mabn',
         'nhapvien',
         'ghichu'
     ];
@@ -36,9 +36,9 @@ class Hsba extends Model
     }
 
     // Quan hệ với bảng `ctnhapvien`
-    public function ctnhapvien()
+    public function nhapvien()
     {
-        return $this->hasMany(Ctnhapvien::class, 'maba');
+        return $this->hasMany(nhapvien::class, 'maba');
     }
 
     // Quan hệ với bệnh nhân

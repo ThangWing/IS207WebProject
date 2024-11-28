@@ -13,7 +13,6 @@ class Ctba extends Model
     public $timestamps = false; // Nếu bảng không có cột timestamps (created_at và updated_at)
 
     protected $fillable = [
-        'maba',
         'mabl',
     ];
 

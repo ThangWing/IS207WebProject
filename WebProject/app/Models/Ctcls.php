@@ -13,8 +13,8 @@ class Ctcls extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'maba',
         'macls',
+        'ketqua',
     ];
 
     public function hsba()
