@@ -21,6 +21,19 @@ return new class extends Migration
             $table->string('ghichu', 200)->nullable(); // Ghi chú
             $table->timestamps();
         });
+
+        Schema::create('bhyt', function (Blueprint $table) {
+            $table->increments('bhytid');
+            $table->unsignedInteger('mabn'); 
+            $table->string('ma_the', 20)->unique();
+            $table->date('ngay_hieu_luc'); 
+            $table->date('ngay_het_han'); 
+            $table->string('noi_dang_ky', 100)->nullable();
+            $table->timestamps();
+
+            // Thiết lập khóa ngoại
+            $table->foreign('mabn')->references('mabn')->on('benhnhan')->onDelete('cascade');
+        });
     }
 
     /**
@@ -29,5 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('benhnhan');
+        Schema::dropIfExists('bhyt');
     }
 };
