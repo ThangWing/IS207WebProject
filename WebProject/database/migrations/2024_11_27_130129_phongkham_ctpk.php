@@ -19,7 +19,7 @@ return new class extends Migration
         });
         //
 
-        Schema::create('ctcls', function (Blueprint $table) {
+        Schema::create('ctkhambenh', function (Blueprint $table) {
             $table->unsignedInteger('mabn');
             $table->unsignedInteger('mapk');
             $table->primary(['mabn', 'mapk']);
@@ -36,6 +36,6 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('phongkham');
-        Schema::dropIfExists('ctcls');
+        Schema::dropIfExists('ctkhambenh');
     }
 };
