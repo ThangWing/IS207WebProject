@@ -10,6 +10,7 @@ class Bacsi extends Model
     use HasFactory;
 
     protected $table = 'bacsi';
+    protected $primaryKey = 'mabs';
 
     protected $fillable = [
         'tenbs',
@@ -22,4 +23,9 @@ class Bacsi extends Model
         'chucvu',
         'makhoa'
     ];
+
+    public function khoa()
+    {
+        return $this->belongsTo(khoa::class, 'makhoa');
+    }
 }

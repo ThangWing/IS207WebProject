@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedInteger('mapcn');
             $table->string('ketqua',300);
             $table->primary(['maba', 'mapcn']);
-
+            $table->index(['maba', 'mapcn']);
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
             $table->foreign('mapcn')->references('mapcn')->on('phongchucnang')->onDelete('cascade');
         });

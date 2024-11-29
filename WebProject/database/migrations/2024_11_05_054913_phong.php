@@ -30,6 +30,7 @@ return new class extends Migration
             $table->unsignedInteger('maba');
             $table->unsignedInteger('mapb');
             $table->primary(['maba', 'mapb']);
+            $table->index(['maba', 'mapb']);
             $table->date('ngnv')->nullable(); // Ngày nhập viện
             $table->date('ngxv')->nullable(); // Ngày xuất viện
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');

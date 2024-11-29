@@ -33,7 +33,7 @@ return new class extends Migration
             $table->unsignedInteger('mathuoc');
             $table->integer('soluong');
             $table->primary(['madt', 'mathuoc']);
-
+            $table->index(['madt', 'mathuoc']);
             $table->foreign('madt')->references('madt')->on('donthuoc')->onDelete('cascade');
             $table->foreign('mathuoc')->references('mathuoc')->on('thuoc')->onDelete('cascade');
         });

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->increments('bhytid');
             $table->unsignedInteger('mabn'); 
             $table->string('ma_the', 20)->unique();
+            $table->string('doituong',100);
             $table->date('ngay_hieu_luc'); 
             $table->date('ngay_het_han'); 
             $table->string('noi_dang_ky', 100)->nullable();

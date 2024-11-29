@@ -11,11 +11,17 @@ class Ctnhapvien extends Model
 
     protected $table = 'nhapvien';
 
+    protected $primaryKey = ['maba', 'mapb'];
+
+    public $incrementing = false;
+
+    protected $keyType = 'int';
+
     protected $fillable = [
-        'maphg',
+        'maba',
+        'mapb',
         'ngnv',
         'ngxv',
-        'loaidv',
     ];
 
     public function hsba()
@@ -23,8 +29,8 @@ class Ctnhapvien extends Model
         return $this->belongsTo(Hsba::class, 'maba');
     }
 
-    public function phong()
+    public function phongBenh()
     {
-        return $this->belongsTo(Phong::class, 'maphg');
+        return $this->belongsTo(phongbenh::class, 'mapb');
     }
 }

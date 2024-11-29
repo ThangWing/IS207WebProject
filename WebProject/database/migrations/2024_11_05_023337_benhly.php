@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('maba');
             $table->unsignedInteger('mabl');
             $table->primary(['maba', 'mabl']);
-
+            $table->index(['maba', 'mabl']);
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
             $table->foreign('mabl')->references('mabl')->on('benhly')->onDelete('cascade');
         });

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('mabn');
             $table->unsignedInteger('mapk');
             $table->primary(['mabn', 'mapk']);
-
+            $table->index(['mabn', 'mapk']);
             $table->foreign('mabn')->references('mabn')->on('benhnhan')->onDelete('cascade');
             $table->foreign('mapk')->references('mapk')->on('phongkham')->onDelete('cascade');
         });

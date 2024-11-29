@@ -22,7 +22,7 @@ class Benhnhan extends Model
         'ghichu'
     ];
 
-    public function hsbas()
+    public function hsba()
     {
         return $this->hasMany(Hsba::class, 'mabn');
     }

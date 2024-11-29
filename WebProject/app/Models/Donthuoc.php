@@ -10,6 +10,7 @@ class Donthuoc extends Model
     use HasFactory;
 
     protected $table = 'donthuoc';
+    protected $primaryKey = 'madt';
 
     protected $fillable = [
         'ghichu',
@@ -20,7 +21,7 @@ class Donthuoc extends Model
         return $this->belongsTo(Hsba::class, 'maba');
     }
 
-    public function ctdts()
+    public function ctdt()
     {
         return $this->hasMany(Ctdt::class, 'madt');
     }
