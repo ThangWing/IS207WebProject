@@ -10,6 +10,19 @@ class CanlamsangController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function getCLS()
+    {
+        $results = DB::table('phongchucnang')
+            ->join('canlamsang', 'canlamsang.macls', '=', 'phongchucnang.macls')
+            ->select('phongchucnang.mapcn', 'canlamsang.macls', 'canlamsang.tencls', 'canlamsang.gia')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $results,
+        ]);
+    }
+
     public function index()
     {
         //

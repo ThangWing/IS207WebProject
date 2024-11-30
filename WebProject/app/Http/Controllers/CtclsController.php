@@ -7,35 +7,76 @@ use App\Models\Ctcls;
 
 class CtclsController extends Controller
 {
-    //
-    public function store(Request $request)
+
+// Thêm mới CTCLS
+    public function createCtcls(Request $request)
     {
-        $request->validate([
-            'maba' => 'required|exists:hsba,maba',
-            'macls' => 'required|exists:canls,macls',
+        $validatedData = $request->validate([
+            'maba' => 'required|integer',
+            'mapcn' => 'required|integer',
+            'ketqua' => 'nullable|string|max:300',
         ]);
 
-        $ctcls = Ctcls::create($request->all());
-        return response()->json($ctcls, 201);
+        $ctcls = Ctcls::create($validatedData);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'CTCLS created successfully!',
+            'data' => $ctcls,
+        ]);
     }
 
-    public function show($id)
+    // Cập nhật CTCLS
+    public function updateCtcls(Request $request, $maba, $mapcn)
     {
-        $ctcls = Ctcls::findOrFail($id);
-        return response()->json($ctcls);
+        $validatedData = $request->validate([
+            'ketqua' => 'nullable|string|max:300',
+        ]);
+
+        $ctcls = Ctcls::where('maba', $maba)
+            ->where('mapcn', $mapcn)
+            ->firstOrFail();
+
+        $ctcls->update($validatedData);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'CTCLS updated successfully!',
+            'data' => $ctcls,
+        ]);
     }
 
-    public function update(Request $request, $id)
+    // Xóa CTCLS
+    public function deleteCtcls($maba, $mapcn)
     {
-        $ctcls = Ctcls::findOrFail($id);
-        $ctcls->update($request->all());
-        return response()->json($ctcls);
-    }
+        $ctcls = Ctcls::where('maba', $maba)
+            ->where('mapcn', $mapcn)
+            ->firstOrFail();
 
-    public function destroy($id)
-    {
-        $ctcls = Ctcls::findOrFail($id);
         $ctcls->delete();
-        return response()->json(['message' => 'Record deleted successfully']);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'CTCLS deleted successfully!',
+        ]);
     }
+
+// Truy vấn getTenCtCls
+    public function getCtclsDetails($maba)
+    {
+    $results = DB::table('ctcls')
+        ->join('phongchucnang', function ($join) {
+            $join->on('ctcls.mapcn', '=', 'phongchucnang.mapcn')
+                 ->on('ctcls.macls', '=', 'phongchucnang.macls');
+        })
+        ->join('canlamsang', 'phongchucnang.macls', '=', 'canlamsang.macls')
+        ->where('ctcls.maba', $maba)
+        ->select('canlamsang.macls', 'canlamsang.tencls', 'ctcls.ketqua')
+        ->get();
+
+    return response()->json([
+        'status' => 'success',
+        'data' => $results,
+    ]);
+}
 }
