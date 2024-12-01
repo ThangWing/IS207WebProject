@@ -38,3 +38,17 @@ Route::get('/ctcls/details/{maba}', [CtclsController::class, 'getCtclsDetails'])
 Route::post('/ctcls', [CtclsController::class, 'createCtcls']);
 Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'updateCtcls']);
 Route::delete('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'deleteCtcls']);
+
+Route::controller(CtnhapvienController::class)->group(function () {
+Route::post('/ctnhapvien', 'store'); // Thêm
+Route::delete('/ctnhapvien/{maba}/{mapb}', 'destroy'); // Xóa
+Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
+Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
+});
+
+Route::get('/', [CtkhambenhController::class, 'index']);
+Route::get('/{makb}', [CtkhambenhController::class, 'show']);
+Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']);
+Route::put('/{makb}', [CtkhambenhController::class, 'update']);
+Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
+Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
