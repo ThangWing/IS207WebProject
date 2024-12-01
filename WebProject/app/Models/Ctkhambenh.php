@@ -6,22 +6,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ctkhambenh extends Model
 {
-    //
-    use HasFactory, Compoships;
-
     protected $table = 'ctkhambenh';
-    public $incrementing = false;
-    public $timestamps = false;
 
-    protected $fillable = ['mabn', 'mapk'];
+    protected $primaryKey = 'makb'; // Đặt khóa chính là makb
+    public $incrementing = true; // Sử dụng tự tăng
+    protected $keyType = 'int'; // Kiểu dữ liệu int
+
+    public $timestamps = true; // Bật timestamps
+
+    protected $fillable = [
+        'mabn',
+        'mapk',
+    ];
+
+    public function getNgayKham()
+    {
+        return $this->created_at;
+    }
 
     public function benhnhan()
     {
-        return $this->belongsTo(BenhNhan::class, ['mabn'], ['mabn']);
+        return $this->belongsTo(Benhnhan::class, 'mabn');
     }
 
     public function phongkham()
     {
-        return $this->belongsTo(PhongKham::class, ['mapk'], ['mapk']);
+        return $this->belongsTo(Phongkham::class, 'mapk');
     }
 }

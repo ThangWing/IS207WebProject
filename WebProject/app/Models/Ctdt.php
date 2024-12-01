@@ -12,6 +12,12 @@ class Ctdt extends Model
     protected $table = 'ctdt';
     public $timestamps = false;
 
+    public $incrementing = false;
+
+    protected $primaryKey = ['madt', 'mathuoc'];
+
+    protected $keyType = 'int';
+
     protected $fillable = [
         'madt',
         'mathuoc',

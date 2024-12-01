@@ -10,37 +10,88 @@ class CtdtController extends Controller
     //
     public function store(Request $request)
     {
-        $request->validate([
-            'madt' => 'required|exists:donthuoc,madt',
-            'mathuoc' => 'required|exists:thuoc,mathuoc',
+        $validated = $request->validate([
+            'madt' => 'required|integer',
+            'mathuoc' => 'required|integer',
             'soluong' => 'required|integer',
         ]);
 
-        $ctdt = Ctdt::create($request->all());
-        return response()->json($ctdt, 201);
-    }
+        $ctdt = Ctdt::create($validated);
 
-    public function show($id)
-    {
-        $ctdt = Ctdt::findOrFail($id);
-        return response()->json($ctdt);
+        return response()->json([
+            'status' => 'success',
+            'data' => $ctdt,
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'soluong' => 'sometimes|required|integer',
+        $validated = $request->validate([
+            'soluong' => 'required|integer',
         ]);
 
-        $ctdt = Ctdt::findOrFail($id);
-        $ctdt->update($request->all());
-        return response()->json($ctdt);
+        $ctdt = Ctdt::find($id);
+
+        if (!$ctdt) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Chi tiết đơn thuốc không tồn tại.',
+            ], 404);
+        }
+
+        $ctdt->update($validated);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $ctdt,
+        ]);
     }
 
+    // Xóa ctdt
     public function destroy($id)
     {
-        $ctdt = Ctdt::findOrFail($id);
-        $ctdt->delete();
-        return response()->json(['message' => 'Record deleted successfully']);
+        $validator = Validator::make($request->all(), [
+            'madt' => 'required|integer',
+            'mathuoc' => 'required|integer',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+    
+        $madt = $request->input('madt');
+        $mathuoc = $request->input('mathuoc');
+    
+        $deleted = Ctdt::where('madt', $madt)
+            ->where('mathuoc', $mathuoc)
+            ->delete();
+    
+        if ($deleted) {
+            return response()->json([
+                'message' => 'Bản ghi đã được xóa thành công!',
+            ], 200);
+        }
+    
+        return response()->json([
+            'message' => 'Không tìm thấy bản ghi để xóa.',
+        ], 404);
+    }
+
+    // Lấy chi tiết đơn thuốc của maba
+    public function getDonThuocDetails($maba)
+    {
+        $results = DB::table('donthuoc')
+            ->join('ctdt', 'donthuoc.madt', '=', 'ctdt.madt')
+            ->join('thuoc', 'ctdt.mathuoc', '=', 'thuoc.mathuoc')
+            ->where('donthuoc.maba', $maba)
+            ->select('donthuoc.madt', 'ctdt.mathuoc', 'thuoc.tenthuoc', 'ctdt.soluong as sl')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $results,
+        ]);
     }
 }
