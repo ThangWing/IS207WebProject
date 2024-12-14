@@ -7,7 +7,7 @@
 - Launch a bash console in that location and clone the project repository:
 
     ```bash
-    git clone https://github.com/organization/project.git
+    git clone https://github.com/ThangWing/IS207WebProject.git
     ```
 
 ### **2. Change Directory to the Project**
