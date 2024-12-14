@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('soluong');
             $table->string('donvi',100);
             $table->decimal('dongia',10,2);
-            $table->string('ghichu',200);
+            $table->string('ghichu',200)->nullable();
         });
 
         Schema::create('donthuoc', function (Blueprint $table) {
