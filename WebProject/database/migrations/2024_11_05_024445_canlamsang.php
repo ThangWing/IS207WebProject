@@ -18,20 +18,20 @@ return new class extends Migration
             $table->decimal('gia',10,2);
         });
 
-        Schema::create('phongchucnang', function (Blueprint $table) {
-            $table->increments('mapcn'); // Primary Key
+        Schema::create('phongxetnghiem', function (Blueprint $table) {
+            $table->increments('mapxn'); // Primary Key
             $table->unsignedInteger('macls'); 
             $table->string('vitri',200); 
         });
 
         Schema::create('ctcls', function (Blueprint $table) {
             $table->unsignedInteger('maba');
-            $table->unsignedInteger('mapcn');
+            $table->unsignedInteger('mapxn');
             $table->string('ketqua',300);
-            $table->primary(['maba', 'mapcn']);
-            $table->index(['maba', 'mapcn']);
+            $table->primary(['maba', 'mapxn']);
+            $table->index(['maba', 'mapxn']);
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
-            $table->foreign('mapcn')->references('mapcn')->on('phongchucnang')->onDelete('cascade');
+            $table->foreign('mapxn')->references('mapxn')->on('phongxetnghiem')->onDelete('cascade');
         });
     }
 
@@ -43,5 +43,6 @@ return new class extends Migration
         //
         Schema::dropIfExists('canls');
         Schema::dropIfExists('ctcls');
+        Schema::dropIfExists('phongxetnghiem');
     }
 };
