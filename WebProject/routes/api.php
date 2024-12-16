@@ -6,14 +6,16 @@ use App\Http\Controllers\BenhnhanController;
 use App\Http\Controllers\HsbaController;
 use App\Http\Controllers\BacsiController;
 use App\Http\Controllers\CtbaController;
-
 use App\Http\Controllers\HoadonController;
+use App\Http\Controllers\BenhlyController;
+use App\Http\Controllers\CanlamsangController;
+
 
 
 Route::post('/ctba', [CtbaController::class, 'store']);
 Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
 Route::delete('/ctba/{maba}/{mabl}', [CtbaController::class, 'destroy']);
-// Route::get('/benhly/{maba}', [BenhlyController::class, 'getTenbl']);
+Route::get('/benhly/{maba}', [BenhlyController::class, 'getTenbl']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -47,7 +49,7 @@ Route::post('/ctnhapvien', 'store'); // Thêm
 Route::delete('/ctnhapvien/{maba}/{mapb}', 'destroy'); // Xóa
 Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
 Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
-// });
+});
 
 Route::get('/', [CtkhambenhController::class, 'index']);
 Route::get('/{makb}', [CtkhambenhController::class, 'show']);
@@ -56,15 +58,7 @@ Route::put('/{makb}', [CtkhambenhController::class, 'update']);
 Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
 Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
 
-<<<<<<< HEAD
-Route::get('/', [CtkhambenhController::class, 'index']);
-Route::get('/{makb}', [CtkhambenhController::class, 'show']);
-Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']);
-Route::put('/{makb}', [CtkhambenhController::class, 'update']);
-Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
-Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
-
-Route::get('/benhly', [BenhLyController::class, 'index']);          // Lấy danh sách bệnh lý
+Route::get('/benhly', [BenhLyController::class, 'index']);
 Route::post('/benhly', [BenhLyController::class, 'store']);         // Thêm mới bệnh lý
 Route::get('/benhly/{id}', [BenhLyController::class, 'show']);      // Lấy chi tiết bệnh lý
 Route::put('/benhly/{id}', [BenhLyController::class, 'update']);    // Cập nhật bệnh lý
@@ -75,5 +69,3 @@ Route::post('/canls', [CanLSController::class, 'store']);         // Thêm mới
 Route::get('/canls/{id}', [CanLSController::class, 'show']);      // Lấy chi tiết cận lâm sàng
 Route::put('/canls/{id}', [CanLSController::class, 'update']);    // Cập nhật cận lâm sàng
 Route::delete('/canls/{id}', [CanLSController::class, 'destroy']);
-=======
->>>>>>> d65468b12edfc20cb44dcb984cbec901261417a7
