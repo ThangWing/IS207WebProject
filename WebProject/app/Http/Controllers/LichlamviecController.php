@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\phongchucnang;
-use Illuminate\Http\Request;
+use App\Models\Lichlamviec;
+use App\Http\Requests\StoreLichlamviecRequest;
+use App\Http\Requests\UpdateLichlamviecRequest;
 
-class PhongchucnangController extends Controller
+class LichlamviecController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class PhongchucnangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLichlamviecRequest $request)
     {
         //
     }
@@ -34,7 +35,7 @@ class PhongchucnangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(phongchucnang $phongchucnang)
+    public function show(Lichlamviec $lichlamviec)
     {
         //
     }
@@ -42,7 +43,7 @@ class PhongchucnangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(phongchucnang $phongchucnang)
+    public function edit(Lichlamviec $lichlamviec)
     {
         //
     }
@@ -50,7 +51,7 @@ class PhongchucnangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, phongchucnang $phongchucnang)
+    public function update(UpdateLichlamviecRequest $request, Lichlamviec $lichlamviec)
     {
         //
     }
@@ -58,7 +59,7 @@ class PhongchucnangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(phongchucnang $phongchucnang)
+    public function destroy(Lichlamviec $lichlamviec)
     {
         //
     }

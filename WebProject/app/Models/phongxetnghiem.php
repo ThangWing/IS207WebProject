@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class phongchucnang extends Model
+class phongxetnghiem extends Model
 {
     //
     use HasFactory;
 
-    protected $table = 'phongchucnang';
+    protected $table = 'phongxetnghiem';
 
-    protected $primaryKey = 'mapcn';
+    protected $primaryKey = 'mapxn';
 
     public $incrementing = true;
 
