@@ -25,54 +25,62 @@ class CanlamsangController extends Controller
 
     public function index()
     {
-        //
+        $canls = CanLS::all();
+        return response()->json($canls);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Thêm mới cận lâm sàng
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tencls' => 'required|string|max:200',
+            'gia' => 'required|numeric|min:0',
+        ]);
+
+        $canls = CanLS::create($validated);
+        return response()->json($canls, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(canlamsang $canlamsang)
+    // Lấy thông tin chi tiết cận lâm sàng
+    public function show($id)
     {
-        //
+        $canls = CanLS::find($id);
+
+        if (!$canls) {
+            return response()->json(['message' => 'Cận lâm sàng không tồn tại'], 404);
+        }
+
+        return response()->json($canls);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(canlamsang $canlamsang)
+    // Cập nhật cận lâm sàng
+    public function update(Request $request, $id)
     {
-        //
+        $canls = CanLS::find($id);
+
+        if (!$canls) {
+            return response()->json(['message' => 'Cận lâm sàng không tồn tại'], 404);
+        }
+
+        $validated = $request->validate([
+            'tencls' => 'required|string|max:200',
+            'gia' => 'required|numeric|min:0',
+        ]);
+
+        $canls->update($validated);
+        return response()->json($canls);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, canlamsang $canlamsang)
+    // Xóa cận lâm sàng
+    public function destroy($id)
     {
-        //
-    }
+        $canls = CanLS::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(canlamsang $canlamsang)
-    {
-        //
+        if (!$canls) {
+            return response()->json(['message' => 'Cận lâm sàng không tồn tại'], 404);
+        }
+
+        $canls->delete();
+        return response()->json(['message' => 'Đã xóa cận lâm sàng']);
     }
 }

@@ -52,3 +52,15 @@ Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']
 Route::put('/{makb}', [CtkhambenhController::class, 'update']);
 Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
 Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
+
+Route::get('/benhly', [BenhLyController::class, 'index']);          // Lấy danh sách bệnh lý
+Route::post('/benhly', [BenhLyController::class, 'store']);         // Thêm mới bệnh lý
+Route::get('/benhly/{id}', [BenhLyController::class, 'show']);      // Lấy chi tiết bệnh lý
+Route::put('/benhly/{id}', [BenhLyController::class, 'update']);    // Cập nhật bệnh lý
+Route::delete('/benhly/{id}', [BenhLyController::class, 'destroy']); 
+
+Route::get('/canls', [CanLSController::class, 'index']);          // Lấy danh sách cận lâm sàng
+Route::post('/canls', [CanLSController::class, 'store']);         // Thêm mới cận lâm sàng
+Route::get('/canls/{id}', [CanLSController::class, 'show']);      // Lấy chi tiết cận lâm sàng
+Route::put('/canls/{id}', [CanLSController::class, 'update']);    // Cập nhật cận lâm sàng
+Route::delete('/canls/{id}', [CanLSController::class, 'destroy']);

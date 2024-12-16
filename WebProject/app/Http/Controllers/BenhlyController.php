@@ -12,54 +12,60 @@ class BenhlyController extends Controller
      */
     public function index()
     {
-        //
+        $benhly = BenhLy::all();
+        return response()->json($benhly);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Thêm mới bệnh lý
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tenbl' => 'required|string|max:200',
+        ]);
+
+        $benhly = BenhLy::create($validated);
+        return response()->json($benhly, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(benhly $benhly)
+    // Lấy thông tin chi tiết bệnh lý
+    public function show($id)
     {
-        //
+        $benhly = BenhLy::find($id);
+
+        if (!$benhly) {
+            return response()->json(['message' => 'Bệnh lý không tồn tại'], 404);
+        }
+
+        return response()->json($benhly);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(benhly $benhly)
+    // Cập nhật bệnh lý
+    public function update(Request $request, $id)
     {
-        //
+        $benhly = BenhLy::find($id);
+
+        if (!$benhly) {
+            return response()->json(['message' => 'Bệnh lý không tồn tại'], 404);
+        }
+
+        $validated = $request->validate([
+            'tenbl' => 'required|string|max:200',
+        ]);
+
+        $benhly->update($validated);
+        return response()->json($benhly);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, benhly $benhly)
+    // Xóa bệnh lý
+    public function destroy($id)
     {
-        //
-    }
+        $benhly = BenhLy::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(benhly $benhly)
-    {
-        //
+        if (!$benhly) {
+            return response()->json(['message' => 'Bệnh lý không tồn tại'], 404);
+        }
+
+        $benhly->delete();
+        return response()->json(['message' => 'Đã xóa bệnh lý']);
     }
 }
