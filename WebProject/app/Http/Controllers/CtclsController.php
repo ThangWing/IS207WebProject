@@ -13,7 +13,7 @@ class CtclsController extends Controller
     {
         $validatedData = $request->validate([
             'maba' => 'required|integer',
-            'mapcn' => 'required|integer',
+            'mapxn' => 'required|integer',
             'ketqua' => 'nullable|string|max:300',
         ]);
 
@@ -34,7 +34,7 @@ class CtclsController extends Controller
         ]);
 
         $ctcls = Ctcls::where('maba', $maba)
-            ->where('mapcn', $mapcn)
+            ->where('mapxn', $mapxn)
             ->firstOrFail();
 
         $ctcls->update($validatedData);
