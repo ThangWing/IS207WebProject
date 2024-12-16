@@ -6,6 +6,7 @@ use App\Http\Controllers\BenhnhanController;
 use App\Http\Controllers\HsbaController;
 use App\Http\Controllers\BacsiController;
 use App\Http\Controllers\CtbaController;
+use App\Http\Controllers\HoadonController;
 
 Route::post('/ctba', [CtbaController::class, 'store']);
 Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
@@ -40,10 +41,10 @@ Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'updateCtcls']);
 Route::delete('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'deleteCtcls']);
 
 Route::controller(CtnhapvienController::class)->group(function () {
-Route::post('/ctnhapvien', 'store'); // Thêm
-Route::delete('/ctnhapvien/{maba}/{mapb}', 'destroy'); // Xóa
-Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
-Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
+    Route::post('/ctnhapvien', 'store'); // Thêm
+    Route::delete('/ctnhapvien/{maba}/{mapb}', 'destroy'); // Xóa
+    Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
+    Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
 });
 
 Route::get('/', [CtkhambenhController::class, 'index']);
@@ -52,3 +53,9 @@ Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']
 Route::put('/{makb}', [CtkhambenhController::class, 'update']);
 Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
 Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
+
+Route::get('/hoadon', [HoadonController::class, 'index']);       // Get all invoices
+Route::post('/hoadon', [HoadonController::class, 'store']);      // Create a new invoice
+Route::get('/hoadon/{id}', [HoadonController::class, 'show']);   // Get details of a specific invoice
+Route::put('/hoadon/{id}', [HoadonController::class, 'update']); // Update a specific invoice
+Route::delete('/hoadon/{id}', [HoadonController::class, 'destroy']); // Delete a specific invoice
