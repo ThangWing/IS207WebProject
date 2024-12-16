@@ -6,6 +6,7 @@ use App\Http\Controllers\BenhnhanController;
 use App\Http\Controllers\HsbaController;
 use App\Http\Controllers\BacsiController;
 use App\Http\Controllers\CtbaController;
+use App\Http\Controllers\CtclsController;
 
 Route::post('/ctba', [CtbaController::class, 'store']);
 Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
@@ -31,13 +32,13 @@ Route::delete('/hsba/{mabn}/{maba}', [HsbaController::class, 'destroy']);
 Route::get('/doctors', [BacsiController::class, 'index']);
 Route::post('/doctors', [BacsiController::class, 'store']);
 Route::get('/doctors/{id}', [BacsiController::class, 'show']);
-Route::put('/doctors/{id}', [BacsiController::class, 'update']);
+Route::put('/doctors/{id}', [BacsiController::class, 'update']);    
 Route::delete('/doctors/{id}', [BacsiController::class, 'destroy']);
 
-// Route::get('/ctcls/details/{maba}', [CtclsController::class, 'getCtclsDetails']);
-// Route::post('/ctcls', [CtclsController::class, 'createCtcls']);
-// Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'updateCtcls']);
-// Route::delete('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'deleteCtcls']);
+Route::get('/ctcls/details/{maba}', [CtclsController::class, 'getCtclsDetails']);
+Route::post('/ctcls', [CtclsController::class, 'createCtcls']);
+Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'updateCtcls']);
+Route::delete('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'deleteCtcls']);
 
 // Route::controller(CtnhapvienController::class)->group(function () {
 // Route::post('/ctnhapvien', 'store'); // Thêm
