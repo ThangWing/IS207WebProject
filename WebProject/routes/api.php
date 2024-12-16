@@ -7,10 +7,13 @@ use App\Http\Controllers\HsbaController;
 use App\Http\Controllers\BacsiController;
 use App\Http\Controllers\CtbaController;
 
+use App\Http\Controllers\HoadonController;
+
+
 Route::post('/ctba', [CtbaController::class, 'store']);
 Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
 Route::delete('/ctba/{maba}/{mabl}', [CtbaController::class, 'destroy']);
-Route::get('/benhly/{maba}', [BenhlyController::class, 'getTenbl']);
+// Route::get('/benhly/{maba}', [BenhlyController::class, 'getTenbl']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,7 +34,7 @@ Route::delete('/hsba/{mabn}/{maba}', [HsbaController::class, 'destroy']);
 Route::get('/doctors', [BacsiController::class, 'index']);
 Route::post('/doctors', [BacsiController::class, 'store']);
 Route::get('/doctors/{id}', [BacsiController::class, 'show']);
-Route::put('/doctors/{id}', [BacsiController::class, 'update']);
+Route::put('/doctors/{id}', [BacsiController::class, 'update']);    
 Route::delete('/doctors/{id}', [BacsiController::class, 'destroy']);
 
 Route::get('/ctcls/details/{maba}', [CtclsController::class, 'getCtclsDetails']);
@@ -44,8 +47,16 @@ Route::post('/ctnhapvien', 'store'); // Thêm
 Route::delete('/ctnhapvien/{maba}/{mapb}', 'destroy'); // Xóa
 Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
 Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
-});
+// });
 
+Route::get('/', [CtkhambenhController::class, 'index']);
+Route::get('/{makb}', [CtkhambenhController::class, 'show']);
+Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']);
+Route::put('/{makb}', [CtkhambenhController::class, 'update']);
+Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
+Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
+
+<<<<<<< HEAD
 Route::get('/', [CtkhambenhController::class, 'index']);
 Route::get('/{makb}', [CtkhambenhController::class, 'show']);
 Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']);
@@ -64,3 +75,5 @@ Route::post('/canls', [CanLSController::class, 'store']);         // Thêm mới
 Route::get('/canls/{id}', [CanLSController::class, 'show']);      // Lấy chi tiết cận lâm sàng
 Route::put('/canls/{id}', [CanLSController::class, 'update']);    // Cập nhật cận lâm sàng
 Route::delete('/canls/{id}', [CanLSController::class, 'destroy']);
+=======
+>>>>>>> d65468b12edfc20cb44dcb984cbec901261417a7
