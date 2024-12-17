@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class phongxetnghiem extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'phongxetnghiem';
 
@@ -26,6 +26,6 @@ class phongxetnghiem extends Model
 
     public function canls()
     {
-        return $this->belongsTo(Canls::class, 'macls', 'macls');
+        return $this->belongsTo(canlamsang::class, 'macls', 'macls');
     }
 }

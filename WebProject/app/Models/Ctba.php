@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ctba extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'ctba';
     public $incrementing = false;

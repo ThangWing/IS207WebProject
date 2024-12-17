@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class benhly extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'benhly';
 

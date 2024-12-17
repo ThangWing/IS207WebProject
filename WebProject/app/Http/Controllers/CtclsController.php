@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ctcls;
+use Illuminate\Support\Facades\DB;
 
 class CtclsController extends Controller
 {
@@ -27,7 +28,7 @@ class CtclsController extends Controller
     }
 
     // Cập nhật CTCLS
-    public function updateCtcls(Request $request, $maba, $mapcn)
+    public function updateCtcls(Request $request, $maba, $mapxn)
     {
         $validatedData = $request->validate([
             'ketqua' => 'nullable|string|max:300',

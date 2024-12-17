@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hsba extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'hsba';
     protected $primaryKey = 'maba';

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ctcls extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'ctcls';
 
@@ -32,6 +32,6 @@ class Ctcls extends Model
 
     public function phongChucNang()
     {
-        return $this->belongsTo(PhongChucNang::class, 'mapcn', 'mapcn');
+        return $this->belongsTo(phongxetnghiem::class, 'mapcn', 'mapcn');
     }
 }

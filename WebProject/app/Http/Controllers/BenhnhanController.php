@@ -21,7 +21,7 @@ class BenhnhanController extends Controller
             'tenbn' => 'sometimes|required|string|max:100',
             'ngsinh' => 'sometimes|required|date',
             'gioitinh' => 'sometimes|required|string|max:10',
-            'sdt' => 'sometimes|required|integer',
+            'sdt' => 'sometimes|required|string|max:22',
             'diachi' => 'sometimes|required|string|max:100',
             'ghichu' => 'nullable|string|max:200',
         ]);
