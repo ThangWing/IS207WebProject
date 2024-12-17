@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Exception;
 use App\Models\Hsba;
 use App\Models\Benhnhan;
 use App\Http\Requests\StorehsbaRequest;
@@ -15,8 +15,13 @@ class HsbaController extends Controller
     // Hiển thị danh sách hồ sơ bệnh án
     public function index()
     {
-        $records = Hsba::with('patient')->get();
-        return response()->json($records);
+        try {
+            $records = Hsba::with('benhnhan')->get();
+            return response()->json($records);
+        }
+        catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
     }
 
     // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
