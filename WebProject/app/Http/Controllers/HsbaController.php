@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hsba;
+use App\Models\Benhnhan;
 use App\Http\Requests\StorehsbaRequest;
 use App\Http\Requests\UpdatehsbaRequest;
 
@@ -19,7 +20,7 @@ class HsbaController extends Controller
     }
 
     // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
-    public function store(Request $request)
+    public function store(StorehsbaRequest $request)
     {
         $request->validate([
             'mabn' => 'required|exists:benhnhan,mabn', // Xác nhận mã bệnh nhân tồn tại
@@ -49,7 +50,7 @@ class HsbaController extends Controller
     }
 
     // Cập nhật thông tin hồ sơ bệnh án
-    public function update(Request $request, $mabn, $maba)
+    public function update(UpdatehsbaRequest $request, $mabn, $maba)
     {
         $request->validate([
             'nhapvien' => 'sometimes|required|boolean',
