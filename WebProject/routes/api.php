@@ -9,7 +9,22 @@ use App\Http\Controllers\CtbaController;
 use App\Http\Controllers\HoadonController;
 use App\Http\Controllers\BenhlyController;
 use App\Http\Controllers\CanlamsangController;
+use App\Http\Controllers\Api\ThuocController;
 
+Route::get('/thuoc', [ThuocController::class, 'index']);
+
+// Tạo thuốc mới
+Route::post('/thuoc', [ThuocController::class, 'store']);
+
+// Lấy thông tin chi tiết một thuốc
+Route::get('/thuoc/{id}', [ThuocController::class, 'show']);
+
+// Cập nhật thông tin thuốc
+Route::put('/thuoc/{id}', [ThuocController::class, 'update']);
+Route::patch('/thuoc/{id}', [ThuocController::class, 'update']); // Hỗ trợ cả PATCH
+
+// Xóa thuốc
+Route::delete('/thuoc/{id}', [ThuocController::class, 'destroy']);
 
 
 Route::post('/ctba', [CtbaController::class, 'store']);
@@ -69,3 +84,16 @@ Route::post('/canls', [CanLSController::class, 'store']);         // Thêm mới
 Route::get('/canls/{id}', [CanLSController::class, 'show']);      // Lấy chi tiết cận lâm sàng
 Route::put('/canls/{id}', [CanLSController::class, 'update']);    // Cập nhật cận lâm sàng
 Route::delete('/canls/{id}', [CanLSController::class, 'destroy']);
+
+Route::get('/hoadon', [HoadonController::class, 'index']);       // Get all invoices
+Route::post('/hoadon', [HoadonController::class, 'store']);      // Create a new invoice
+Route::get('/hoadon/{id}', [HoadonController::class, 'show']);   // Get details of a specific invoice
+Route::put('/hoadon/{id}', [HoadonController::class, 'update']); // Update a specific invoice
+Route::delete('/hoadon/{id}', [HoadonController::class, 'destroy']); // Delete a specific invoice
+
+Route::get('/', [CtkhambenhController::class, 'index']);
+Route::get('/{makb}', [CtkhambenhController::class, 'show']);
+Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']);
+Route::put('/{makb}', [CtkhambenhController::class, 'update']);
+Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
+Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);

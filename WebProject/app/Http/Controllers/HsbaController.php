@@ -8,68 +8,85 @@ use App\Http\Requests\UpdatehsbaRequest;
 
 class HsbaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // Hiển thị danh sách hồ sơ bệnh án
     public function index()
     {
-        $records = Hsba::with('patient')->get();
-        return response()->json($records);
+        $hsbas = Hsba::with('benhnhan')->get();
+        return response()->json($hsbas, 200);
     }
 
-    // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
+    // Tạo hồ sơ bệnh án mới
     public function store(Request $request)
     {
-        $request->validate([
-            'mabn' => 'required|exists:benhnhan,mabn', // Xác nhận mã bệnh nhân tồn tại
-            'mabl' => 'required|integer',
+        $validated = $request->validate([
+            'mabn' => 'required|exists:benhnhan,mabn',
             'nhapvien' => 'required|boolean',
+            'chieucao' => 'nullable|string|max:200',
+            'cannang' => 'nullable|string|max:200',
+            'huyetap' => 'nullable|string|max:200',
+            'mach' => 'nullable|string|max:200',
+            'trieuchung' => 'nullable|string|max:200',
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        // Tìm bệnh nhân theo mã bệnh nhân
-        $patient = Benhnhan::findOrFail($request->mabn);
+        $hsba = Hsba::create($validated);
 
-        // Tạo hồ sơ bệnh án mới
-        $record = Hsba::create([
-            'mabn' => $patient->mabn,
-            'nhapvien' => $request->nhapvien,
-            'ghichu' => $request->ghichu
-        ]);
-
-        return response()->json($record, 201);
+        return response()->json([
+            'message' => 'Hồ sơ bệnh án được tạo thành công',
+            'data' => $hsba,
+        ], 201);
     }
 
-    // Hiển thị thông tin chi tiết của một hồ sơ bệnh án cụ thể
-    public function show($mabn, $maba)
+    // Lấy chi tiết một hồ sơ bệnh án
+    public function show($id)
     {
-        $record = Hsba::where('mabn', $mabn)->where('maba', $maba)->with('patient')->firstOrFail();
-        return response()->json($record);
+        $hsba = Hsba::with('benhnhan')->find($id);
+
+        if (!$hsba) {
+            return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);
+        }
+
+        return response()->json($hsba, 200);
     }
 
     // Cập nhật thông tin hồ sơ bệnh án
-    public function update(Request $request, $mabn, $maba)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        $hsba = Hsba::find($id);
+
+        if (!$hsba) {
+            return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);
+        }
+
+        $validated = $request->validate([
+            'mabn' => 'sometimes|required|exists:benhnhan,mabn',
             'nhapvien' => 'sometimes|required|boolean',
+            'chieucao' => 'nullable|string|max:200',
+            'cannang' => 'nullable|string|max:200',
+            'huyetap' => 'nullable|string|max:200',
+            'mach' => 'nullable|string|max:200',
+            'trieuchung' => 'nullable|string|max:200',
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        // Tìm hồ sơ bệnh án với mã bệnh nhân và mã hồ sơ bệnh án
-        $record = Hsba::where('mabn', $mabn)->where('maba', $maba)->firstOrFail();
-        $record->update($request->all());
+        $hsba->update($validated);
 
-        return response()->json($record);
+        return response()->json([
+            'message' => 'Cập nhật thông tin thành công',
+            'data' => $hsba,
+        ], 200);
     }
 
     // Xóa hồ sơ bệnh án
-    public function destroy($mabn, $maba)
+    public function destroy($id)
     {
-        // Tìm hồ sơ bệnh án với mã bệnh nhân và mã hồ sơ bệnh án
-        $record = Hsba::where('mabn', $mabn)->where('maba', $maba)->firstOrFail();
-        $record->delete();
+        $hsba = Hsba::find($id);
 
-        return response()->json(['message' => 'Medical record deleted successfully']);
+        if (!$hsba) {
+            return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);
+        }
+
+        $hsba->delete();
+
+        return response()->json(['message' => 'Hồ sơ bệnh án đã được xóa thành công'], 200);
     }
 }

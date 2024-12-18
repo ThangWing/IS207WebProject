@@ -12,9 +12,9 @@ class CanlamsangController extends Controller
      */
     public function getCLS()
     {
-        $results = DB::table('phongchucnang')
-            ->join('canlamsang', 'canlamsang.macls', '=', 'phongchucnang.macls')
-            ->select('phongchucnang.mapcn', 'canlamsang.macls', 'canlamsang.tencls', 'canlamsang.gia')
+        $results = DB::table('phongxetnghiem')
+            ->join('canlamsang', 'canlamsang.macls', '=', 'phongxetnghiem.macls')
+            ->select('phongxetnghiem.mapxn', 'canlamsang.macls', 'canlamsang.tencls', 'canlamsang.gia')
             ->get();
 
         return response()->json([
@@ -25,7 +25,7 @@ class CanlamsangController extends Controller
 
     public function index()
     {
-        $canls = CanLS::all();
+        $canls = canlamsang::all();
         return response()->json($canls);
     }
 
@@ -37,14 +37,14 @@ class CanlamsangController extends Controller
             'gia' => 'required|numeric|min:0',
         ]);
 
-        $canls = CanLS::create($validated);
+        $canls = canlamsang::create($validated);
         return response()->json($canls, 201);
     }
 
     // Lấy thông tin chi tiết cận lâm sàng
     public function show($id)
     {
-        $canls = CanLS::find($id);
+        $canls = canlamsang::find($id);
 
         if (!$canls) {
             return response()->json(['message' => 'Cận lâm sàng không tồn tại'], 404);
@@ -56,7 +56,7 @@ class CanlamsangController extends Controller
     // Cập nhật cận lâm sàng
     public function update(Request $request, $id)
     {
-        $canls = CanLS::find($id);
+        $canls = canlamsang::find($id);
 
         if (!$canls) {
             return response()->json(['message' => 'Cận lâm sàng không tồn tại'], 404);
@@ -74,7 +74,7 @@ class CanlamsangController extends Controller
     // Xóa cận lâm sàng
     public function destroy($id)
     {
-        $canls = CanLS::find($id);
+        $canls = canlamsang::find($id);
 
         if (!$canls) {
             return response()->json(['message' => 'Cận lâm sàng không tồn tại'], 404);

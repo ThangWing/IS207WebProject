@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Benhnhan extends Model
 {
-    //
-    // use HasFactory;
-
     protected $table = 'benhnhan';
 
     protected $primaryKey = 'mabn';
@@ -18,6 +15,7 @@ class Benhnhan extends Model
         'ngsinh',
         'gioitinh',
         'sdt',
+        'cccd',
         'diachi',
         'ghichu'
     ];

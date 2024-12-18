@@ -7,58 +7,83 @@ use App\Models\Benhnhan;
 
 class BenhnhanController extends Controller
 {
-    //
     public function index()
     {
-        $patients = Benhnhan::all();
-        return response()->json($patients);
+        $benhnhans = Benhnhan::all();
+        return response()->json($benhnhans, 200);
     }
 
-    // Tạo mới bệnh nhân
+    // Tạo bệnh nhân mới
     public function store(Request $request)
     {
-        $request->validate([
-            'tenbn' => 'sometimes|required|string|max:100',
-            'ngsinh' => 'sometimes|required|date',
-            'gioitinh' => 'sometimes|required|string|max:10',
-            'sdt' => 'sometimes|required|integer',
-            'diachi' => 'sometimes|required|string|max:100',
+        $validated = $request->validate([
+            'tenbn' => 'required|string|max:100',
+            'ngsinh' => 'required|date',
+            'gioitinh' => 'required|string|max:10',
+            'cccd' => 'required|integer|unique:benhnhan,cccd',
+            'sdt' => 'required|integer|unique:benhnhan,sdt',
+            'diachi' => 'required|string|max:100',
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        $patient = Benhnhan::create($request->all());
-        return response()->json($patient, 201);
+        $benhnhan = Benhnhan::create($validated);
+
+        return response()->json([
+            'message' => 'Bệnh nhân được tạo thành công',
+            'data' => $benhnhan,
+        ], 201);
     }
 
-    // Hiển thị thông tin một bệnh nhân cụ thể
+    // Lấy thông tin chi tiết một bệnh nhân
     public function show($id)
     {
-        $patient = Benhnhan::findOrFail($id);
-        return response()->json($patient);
+        $benhnhan = Benhnhan::find($id);
+
+        if (!$benhnhan) {
+            return response()->json(['message' => 'Bệnh nhân không tồn tại'], 404);
+        }
+
+        return response()->json($benhnhan, 200);
     }
 
     // Cập nhật thông tin bệnh nhân
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'tenbn' => 'required|string|max:100',
-            'ngsinh' => 'required|date',
-            'gioitinh' => 'required|string|max:10',
-            'sdt' => 'required|integer',
-            'diachi' => 'required|string|max:100',
+        $benhnhan = Benhnhan::find($id);
+
+        if (!$benhnhan) {
+            return response()->json(['message' => 'Bệnh nhân không tồn tại'], 404);
+        }
+
+        $validated = $request->validate([
+            'tenbn' => 'sometimes|required|string|max:100',
+            'ngsinh' => 'sometimes|required|date',
+            'gioitinh' => 'sometimes|required|string|max:10',
+            'cccd' => 'sometimes|required|integer|unique:benhnhan,cccd,' . $id . ',mabn',
+            'sdt' => 'sometimes|required|integer|unique:benhnhan,sdt,' . $id . ',mabn',
+            'diachi' => 'sometimes|required|string|max:100',
             'ghichu' => 'nullable|string|max:200',
         ]);
 
-        $patient = Benhnhan::findOrFail($id);
-        $patient->update($request->all());
-        return response()->json($patient);
+        $benhnhan->update($validated);
+
+        return response()->json([
+            'message' => 'Cập nhật thông tin thành công',
+            'data' => $benhnhan,
+        ], 200);
     }
 
     // Xóa bệnh nhân
     public function destroy($id)
     {
-        $patient = Benhnhan::findOrFail($id);
-        $patient->delete();
-        return response()->json(['message' => 'Patient deleted successfully']);
+        $benhnhan = Benhnhan::find($id);
+
+        if (!$benhnhan) {
+            return response()->json(['message' => 'Bệnh nhân không tồn tại'], 404);
+        }
+
+        $benhnhan->delete();
+
+        return response()->json(['message' => 'Bệnh nhân đã được xóa thành công'], 200);
     }
 }

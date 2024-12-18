@@ -7,59 +7,71 @@ use Illuminate\Http\Request;
 
 class ThuocController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(thuoc $thuoc)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(thuoc $thuoc)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, thuoc $thuoc)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(thuoc $thuoc)
-    {
-        //
-    }
+     // Lấy danh sách tất cả thuốc
+     public function index()
+     {
+         $thuoc = Thuoc::all();
+         return response()->json($thuoc, 200);
+     }
+ 
+     // Tạo thuốc mới
+     public function store(Request $request)
+     {
+         $validated = $request->validate([
+             'tenthuoc' => 'required|string|max:200',
+             'soluong'  => 'required|integer|min:0',
+             'donvi'    => 'required|string|max:100',
+             'dongia'   => 'required|numeric|min:0',
+             'ghichu'   => 'nullable|string|max:200',
+         ]);
+ 
+         $thuoc = Thuoc::create($validated);
+         return response()->json($thuoc, 201);
+     }
+ 
+     // Lấy chi tiết một thuốc
+     public function show($id)
+     {
+         $thuoc = Thuoc::find($id);
+ 
+         if (!$thuoc) {
+             return response()->json(['message' => 'Thuốc không tồn tại'], 404);
+         }
+ 
+         return response()->json($thuoc, 200);
+     }
+ 
+     // Cập nhật thông tin thuốc
+     public function update(Request $request, $id)
+     {
+         $thuoc = Thuoc::find($id);
+ 
+         if (!$thuoc) {
+             return response()->json(['message' => 'Thuốc không tồn tại'], 404);
+         }
+ 
+         $validated = $request->validate([
+             'tenthuoc' => 'required|string|max:200',
+             'soluong'  => 'required|integer|min:0',
+             'donvi'    => 'required|string|max:100',
+             'dongia'   => 'required|numeric|min:0',
+             'ghichu'   => 'nullable|string|max:200',
+         ]);
+ 
+         $thuoc->update($validated);
+         return response()->json($thuoc, 200);
+     }
+ 
+     // Xóa thuốc
+     public function destroy($id)
+     {
+         $thuoc = Thuoc::find($id);
+ 
+         if (!$thuoc) {
+             return response()->json(['message' => 'Thuốc không tồn tại'], 404);
+         }
+ 
+         $thuoc->delete();
+         return response()->json(['message' => 'Xóa thành công'], 200);
+     }
 }

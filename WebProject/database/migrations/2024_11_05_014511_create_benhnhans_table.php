@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('tenbn', 100); // Tên bệnh nhân
             $table->date('ngsinh'); // Ngày sinh
             $table->string('gioitinh', 10); // Giới tính
+            $table->integer('cccd')->unique()->index(); // Số điện thoại
             $table->integer('sdt')->unique()->index(); // Số điện thoại
             $table->string('diachi', 100); // Địa chỉ
             $table->string('ghichu', 200)->nullable(); // Ghi chú

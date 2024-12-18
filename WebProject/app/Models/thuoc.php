@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class thuoc extends Model
 {
-    //
-    use HasFactory;
 
     protected $table = 'thuoc';
 

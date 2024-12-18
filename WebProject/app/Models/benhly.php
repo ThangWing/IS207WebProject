@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class benhly extends Model
 {
-    //
-    use HasFactory;
-
     protected $table = 'benhly';
 
     protected $primaryKey = 'mabl';
