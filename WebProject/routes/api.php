@@ -11,6 +11,7 @@ use App\Http\Controllers\CtnhapvienController;
 use App\Http\Controllers\BenhlyController;
 use App\Http\Controllers\CanlamsangController;
 use App\Http\Controllers\Api\ThuocController;
+use App\Http\Controllers\BhytController;
 
 Route::get('/thuoc', [ThuocController::class, 'index']);
 
@@ -91,3 +92,11 @@ Route::post('/canls', [CanlamsangController::class, 'store']);         // Thêm 
 Route::get('/canls/{id}', [CanlamsangController::class, 'show']);      // Lấy chi tiết cận lâm sàng
 Route::put('/canls/{id}', [CanlamsangController::class, 'update']);    // Cập nhật cận lâm sàng
 Route::delete('/canls/{id}', [CanlamsangController::class, 'destroy']);
+
+Route::prefix('bhyt')->group(function () {
+    Route::get('/', [BhytController::class, 'index']);               // Lấy danh sách tất cả BHYT
+    Route::get('/{id}', [BhytController::class, 'show']);            // Lấy thông tin chi tiết BHYT
+    Route::post('/', [BhytController::class, 'store']);              // Thêm mới BHYT
+    Route::put('/{id}', [BhytController::class, 'update']);          // Cập nhật BHYT
+    Route::delete('/{id}', [BhytController::class, 'destroy']);      // Xóa BHYT
+});
