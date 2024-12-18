@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ctdt extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'ctdt';
     public $timestamps = false;

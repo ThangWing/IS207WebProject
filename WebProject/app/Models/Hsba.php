@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hsba extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'hsba';
     protected $primaryKey = 'maba';
@@ -38,7 +38,7 @@ class Hsba extends Model
     // Quan hệ với bảng `ctnhapvien`
     public function nhapvien()
     {
-        return $this->hasMany(nhapvien::class, 'maba');
+        return $this->hasMany(Ctnhapvien::class, 'maba');
     }
 
     // Quan hệ với bệnh nhân

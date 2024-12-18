@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Khoa extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'khoa';
 

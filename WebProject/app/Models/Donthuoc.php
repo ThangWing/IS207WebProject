@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Donthuoc extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'donthuoc';
     protected $primaryKey = 'madt';

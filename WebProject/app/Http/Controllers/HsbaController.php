@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Exception;
 use App\Models\Hsba;
+use App\Models\Benhnhan;
 use App\Http\Requests\StorehsbaRequest;
 use App\Http\Requests\UpdatehsbaRequest;
 
@@ -10,12 +11,17 @@ class HsbaController extends Controller
 {
     public function index()
     {
-        $hsbas = Hsba::with('benhnhan')->get();
-        return response()->json($hsbas, 200);
+        try {
+            $records = Hsba::with('benhnhan')->get();
+            return response()->json($records);
+        }
+        catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
     }
 
-    // Tạo hồ sơ bệnh án mới
-    public function store(Request $request)
+    // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
+    public function store(StorehsbaRequest $request)
     {
         $validated = $request->validate([
             'mabn' => 'required|exists:benhnhan,mabn',
@@ -49,7 +55,7 @@ class HsbaController extends Controller
     }
 
     // Cập nhật thông tin hồ sơ bệnh án
-    public function update(Request $request, $id)
+    public function update(UpdatehsbaRequest $request, $mabn, $maba)
     {
         $hsba = Hsba::find($id);
 
@@ -69,7 +75,6 @@ class HsbaController extends Controller
         ]);
 
         $hsba->update($validated);
-
         return response()->json([
             'message' => 'Cập nhật thông tin thành công',
             'data' => $hsba,

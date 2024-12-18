@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bacsi extends Model
 {
     //
-    use HasFactory;
+    // use HasFactory;
 
     protected $table = 'bacsi';
     protected $primaryKey = 'mabs';
