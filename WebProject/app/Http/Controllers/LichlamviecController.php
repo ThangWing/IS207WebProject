@@ -8,59 +8,68 @@ use App\Http\Requests\UpdateLichlamviecRequest;
 
 class LichlamviecController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $lichLamViec = LichLamViec::with(['bacSi', 'phongKham'])->get();
+        return response()->json($lichLamViec);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Tạo mới một lịch làm việc
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'mabs' => 'required|string|exists:bac_si,mabs',
+            'mapk' => 'required|string|exists:phong_kham,mapk',
+            'ngaylamviec' => 'required|date',
+            'calamviec' => 'required|string|max:20',
+        ]);
+
+        $lichLamViec = LichLamViec::create($validated);
+
+        return response()->json(['message' => 'Lịch làm việc được tạo thành công!', 'data' => $lichLamViec], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreLichlamviecRequest $request)
+    // Lấy chi tiết một lịch làm việc
+    public function show($mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        //
+        $lichLamViec = LichLamViec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
+
+        if (!$lichLamViec) {
+            return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);
+        }
+
+        return response()->json($lichLamViec);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Lichlamviec $lichlamviec)
+    // Cập nhật một lịch làm việc
+    public function update(Request $request, $mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        //
+        $lichLamViec = LichLamViec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
+
+        if (!$lichLamViec) {
+            return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);
+        }
+
+        $validated = $request->validate([
+            'calamviec' => 'sometimes|string|max:20',
+        ]);
+
+        $lichLamViec->update($validated);
+
+        return response()->json(['message' => 'Cập nhật thành công!', 'data' => $lichLamViec]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Lichlamviec $lichlamviec)
+    // Xóa một lịch làm việc
+    public function destroy($mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        //
-    }
+        $lichLamViec = LichLamViec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLichlamviecRequest $request, Lichlamviec $lichlamviec)
-    {
-        //
-    }
+        if (!$lichLamViec) {
+            return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Lichlamviec $lichlamviec)
-    {
-        //
+        $lichLamViec->delete();
+
+        return response()->json(['message' => 'Xóa thành công!']);
     }
 }

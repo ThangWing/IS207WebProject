@@ -104,3 +104,9 @@ Route::prefix('bhyt')->group(function () {
     Route::put('/{id}', [BhytController::class, 'update']);          // Cập nhật BHYT
     Route::delete('/{id}', [BhytController::class, 'destroy']);      // Xóa BHYT
 });
+
+Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
+Route::post('/lichlamviec', [LichlamviecController::class, 'store']);
+Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'show']);
+Route::put('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'update']);
+Route::delete('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'destroy']);
