@@ -57,7 +57,7 @@ class HsbaController extends Controller
     // Cập nhật thông tin hồ sơ bệnh án
     public function update(UpdatehsbaRequest $request, $mabn, $maba)
     {
-        $hsba = Hsba::find($id);
+        $hsba = Hsba::find($maba);
 
         if (!$hsba) {
             return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);

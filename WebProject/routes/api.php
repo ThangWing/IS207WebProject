@@ -10,7 +10,10 @@ use App\Http\Controllers\CtbaController;
 use App\Http\Controllers\CtnhapvienController;
 use App\Http\Controllers\BenhlyController;
 use App\Http\Controllers\CanlamsangController;
-use App\Http\Controllers\Api\ThuocController;
+use App\Http\Controllers\ThuocController;
+use App\Http\Controllers\HoadonController;
+use App\Http\Controllers\CtkhambenhController;
+
 
 Route::get('/thuoc', [ThuocController::class, 'index']);
 
@@ -22,6 +25,8 @@ Route::get('/thuoc/{id}', [ThuocController::class, 'show']);
 
 // Cập nhật thông tin thuốc
 Route::put('/thuoc/{id}', [ThuocController::class, 'update']);
+// Route để cập nhật nhiều thuốc
+Route::put('/thuoc/multiple', [ThuocController::class, 'updateMultiple']);
 Route::patch('/thuoc/{id}', [ThuocController::class, 'update']); // Hỗ trợ cả PATCH
 
 // Xóa thuốc
