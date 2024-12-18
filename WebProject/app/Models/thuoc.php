@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class thuoc extends Model
 {
-
     protected $table = 'thuoc';
 
     protected $primaryKey = 'mathuoc';
