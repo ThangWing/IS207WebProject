@@ -20,8 +20,8 @@ class BenhnhanController extends Controller
             'tenbn' => 'required|string|max:100',
             'ngsinh' => 'required|date',
             'gioitinh' => 'required|string|max:10',
-            'cccd' => 'required|integer|unique:benhnhan,cccd',
-            'sdt' => 'required|integer|unique:benhnhan,sdt',
+            'cccd' => 'required|string|unique:benhnhan,cccd',
+            'sdt' => 'required|string|unique:benhnhan,sdt',
             'diachi' => 'required|string|max:100',
             'ghichu' => 'nullable|string|max:200',
         ]);
