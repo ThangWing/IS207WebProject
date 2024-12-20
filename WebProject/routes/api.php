@@ -16,6 +16,13 @@ use App\Http\Controllers\CtkhambenhController;
 use App\Http\Controllers\BhytController;
 use App\Http\Controllers\LichlamviecController;
 
+Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
+Route::post('/lichlamviec', [LichlamviecController::class, 'store']);
+Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'show']);
+Route::put('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'update']);
+Route::delete('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'destroy']);
+Route::get('/lichlamviec/phongkham/{mapk}', [LichlamviecController::class, 'showByMapk']);
+
 Route::get('/thuoc', [thuocController::class, 'index']);
 
 // Tạo thuốc mới
@@ -70,6 +77,12 @@ Route::delete('/ctnhapvien/{maba}/{mapb}', 'destroy'); // Xóa
 Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
 Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
 });
+
+Route::get('/canlamsang', [CanlamsangController::class, 'index']);       // Lấy danh sách cận lâm sàng
+Route::post('/canlamsang', [CanlamsangController::class, 'store']);         // Thêm mới cận lâm sàng
+Route::get('/canlamsang/{id}', [CanlamsangController::class, 'show']);      // Lấy chi tiết cận lâm sàng
+Route::put('/canlamsang/{id}', [CanlamsangController::class, 'update']);    // Cập nhật cận lâm sàng
+Route::delete('/canlamsang/{id}', [CanlamsangController::class, 'destroy']);
 
 Route::get('/benhly', [BenhlyController::class, 'index']);
 Route::post('/benhly', [BenhlyController::class, 'store']);         // Thêm mới bệnh lý
