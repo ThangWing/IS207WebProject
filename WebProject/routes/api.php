@@ -57,7 +57,6 @@ Route::delete('/hsba/{mabn}/{maba}', [HsbaController::class, 'destroy']);
 Route::get('/doctors', [BacsiController::class, 'index']);
 Route::post('/doctors', [BacsiController::class, 'store']);
 Route::get('/doctors/{id}', [BacsiController::class, 'show']);
-Route::put('/doctors/{id}', [BacsiController::class, 'update']);     
 Route::delete('/doctors/{id}', [BacsiController::class, 'destroy']);
 
 Route::get('/ctcls/details/{maba}', [CtclsController::class, 'getCtclsDetails']);
@@ -76,7 +75,6 @@ Route::get('/benhly', [BenhlyController::class, 'index']);
 Route::post('/benhly', [BenhlyController::class, 'store']);         // Thêm mới bệnh lý
 Route::get('/benhly/{id}', [BenhlyController::class, 'show']);      // Lấy chi tiết bệnh lý
 Route::put('/benhly/{id}', [BenhlyController::class, 'update']);    // Cập nhật bệnh lý
-Route::delete('/benhly/{id}', [BenhlyController::class, 'destroy']); 
 
 Route::get('/hoadon', [HoadonController::class, 'index']);       // Get all invoices
 Route::post('/hoadon', [HoadonController::class, 'store']);      // Create a new invoice
