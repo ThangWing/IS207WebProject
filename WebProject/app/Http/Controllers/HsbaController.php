@@ -6,13 +6,15 @@ use App\Models\Hsba;
 use App\Models\Benhnhan;
 use App\Http\Requests\StorehsbaRequest;
 use App\Http\Requests\UpdatehsbaRequest;
+use Illuminate\Http\Request;
+
 
 class HsbaController extends Controller
 {
     public function index()
     {
         try {
-            $records = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien')->get();
+            $records = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien','ctdts')->get();
             return response()->json($records);
         }
         catch (Exception $e) {
@@ -21,7 +23,7 @@ class HsbaController extends Controller
     }
 
     // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
-    public function store(StorehsbaRequest $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'mabn' => 'required|exists:benhnhan,mabn',
@@ -55,7 +57,7 @@ class HsbaController extends Controller
     }
 
     // Cập nhật thông tin hồ sơ bệnh án
-    public function update(UpdatehsbaRequest $request, $mabn, $maba)
+    public function update(Request $request, $mabn, $maba)
     {
         $hsba = Hsba::find($maba);
 
