@@ -24,4 +24,9 @@ class Benhnhan extends Model
     {
         return $this->hasMany(Hsba::class, 'mabn');
     }
+
+    public function bhyt()
+    {
+        return $this->hasOne(Bhyt::class, 'mabn');
+    }
 }
