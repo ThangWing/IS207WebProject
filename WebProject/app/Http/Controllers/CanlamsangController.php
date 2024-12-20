@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\canlamsang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CanlamsangController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function index()
+    {   
+        $canls = canlamsang::all();
+        return response()->json($canls);
+    }
+
     public function getCLS()
     {
         $results = DB::table('phongxetnghiem')
@@ -24,11 +31,6 @@ class CanlamsangController extends Controller
         ]);
     }
 
-    public function index()
-    {
-        $canls = canlamsang::all();
-        return response()->json($canls);
-    }
 
     // Thêm mới cận lâm sàng
     public function store(Request $request)
