@@ -31,7 +31,6 @@ class CanlamsangController extends Controller
         ]);
     }
 
-
     // Thêm mới cận lâm sàng
     public function store(Request $request)
     {
