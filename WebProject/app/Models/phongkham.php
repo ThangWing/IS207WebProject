@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class phongkham extends Model
 {
-    //
-    use HasFactory;
 
     protected $table = 'phongkham';
 
@@ -18,6 +16,7 @@ class phongkham extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'tenkhoa',
         'vitri', 
         'makhoa'
     ];
@@ -31,4 +30,10 @@ class phongkham extends Model
     {
         return $this->hasMany(CtKhamBenh::class, 'mapk', 'mapk');
     }
+
+    public function lichlamviec()
+    {
+        return $this->hasMany(Lichlamviec::class, 'mapk', 'mapk');
+    }
 }
+

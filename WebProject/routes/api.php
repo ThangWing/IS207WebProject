@@ -10,28 +10,28 @@ use App\Http\Controllers\CtbaController;
 use App\Http\Controllers\CtnhapvienController;
 use App\Http\Controllers\BenhlyController;
 use App\Http\Controllers\CanlamsangController;
-use App\Http\Controllers\ThuocController;
+use App\Http\Controllers\thuocController;
 use App\Http\Controllers\HoadonController;
 use App\Http\Controllers\CtkhambenhController;
 use App\Http\Controllers\BhytController;
+use App\Http\Controllers\LichlamviecController;
 
-Route::get('/thuoc', [ThuocController::class, 'index']);
+Route::get('/thuoc', [thuocController::class, 'index']);
 
 // Tạo thuốc mới
-Route::post('/thuoc', [ThuocController::class, 'store']);
+Route::post('/thuoc', [thuocController::class, 'store']);
 
 // Lấy thông tin chi tiết một thuốc
-Route::get('/thuoc/{id}', [ThuocController::class, 'show']);
+Route::get('/thuoc/{id}', [thuocController::class, 'show']);
 
 // Cập nhật thông tin thuốc
-Route::put('/thuoc/{id}', [ThuocController::class, 'update']);
+Route::put('/thuoc/{id}', [thuocController::class, 'update']);
 // Route để cập nhật nhiều thuốc
-Route::put('/thuoc/multiple', [ThuocController::class, 'updateMultiple']);
-Route::patch('/thuoc/{id}', [ThuocController::class, 'update']); // Hỗ trợ cả PATCH
+Route::put('/thuoc/multiple', [thuocController::class, 'updateMultiple']);
+Route::patch('/thuoc/{id}', [thuocController::class, 'update']); // Hỗ trợ cả PATCH
 
 // Xóa thuốc
-Route::delete('/thuoc/{id}', [ThuocController::class, 'destroy']);
-
+Route::delete('/thuoc/{id}', [thuocController::class, 'destroy']);
 
 Route::post('/ctba', [CtbaController::class, 'store']);
 Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
@@ -72,11 +72,11 @@ Route::put('/ctnhapvien/{maba}/{mapb}', 'update'); // Sửa
 Route::get('/ctnhapvien/details/{maba}', 'showDetails'); // Hiển thị chi tiết
 });
 
-Route::get('/benhly', [BenhLyController::class, 'index']);
-Route::post('/benhly', [BenhLyController::class, 'store']);         // Thêm mới bệnh lý
-Route::get('/benhly/{id}', [BenhLyController::class, 'show']);      // Lấy chi tiết bệnh lý
-Route::put('/benhly/{id}', [BenhLyController::class, 'update']);    // Cập nhật bệnh lý
-Route::delete('/benhly/{id}', [BenhLyController::class, 'destroy']); 
+Route::get('/benhly', [BenhlyController::class, 'index']);
+Route::post('/benhly', [BenhlyController::class, 'store']);         // Thêm mới bệnh lý
+Route::get('/benhly/{id}', [BenhlyController::class, 'show']);      // Lấy chi tiết bệnh lý
+Route::put('/benhly/{id}', [BenhlyController::class, 'update']);    // Cập nhật bệnh lý
+Route::delete('/benhly/{id}', [BenhlyController::class, 'destroy']); 
 
 Route::get('/hoadon', [HoadonController::class, 'index']);       // Get all invoices
 Route::post('/hoadon', [HoadonController::class, 'store']);      // Create a new invoice
@@ -110,3 +110,4 @@ Route::post('/lichlamviec', [LichlamviecController::class, 'store']);
 Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'show']);
 Route::put('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'update']);
 Route::delete('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'destroy']);
+Route::get('/lichlamviec/phongkham/{mapk}', [LichlamviecController::class, 'showByMapk']);

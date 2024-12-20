@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('phongkham', function (Blueprint $table) {
             $table->increments('mapk'); // Primary Key
+            $table->string('tenphong', 200);
             $table->string('vitri', 200); 
             $table->unsignedInteger('makhoa');
             $table->foreign('makhoa')->references('makhoa')->on('khoa')->onDelete('cascade');
@@ -36,7 +37,7 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::dropIfExists('phongkham');
         Schema::dropIfExists('ctkhambenh');
+        Schema::dropIfExists('phongkham');
     }
 };

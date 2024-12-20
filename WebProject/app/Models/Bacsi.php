@@ -28,4 +28,9 @@ class Bacsi extends Model
     {
         return $this->belongsTo(khoa::class, 'makhoa');
     }
+
+    public function lichlamviec()
+    {
+        return $this->hasMany(Lichlamviec::class, 'mabs', 'mabs');
+    }
 }

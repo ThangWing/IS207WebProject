@@ -12,7 +12,7 @@ class HsbaController extends Controller
     public function index()
     {
         try {
-            $records = Hsba::with('benhnhan')->get();
+            $records = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien')->get();
             return response()->json($records);
         }
         catch (Exception $e) {
@@ -45,7 +45,7 @@ class HsbaController extends Controller
     // Lấy chi tiết một hồ sơ bệnh án
     public function show($id)
     {
-        $hsba = Hsba::with('benhnhan')->find($id);
+        $hsba = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien')->find($id);
 
         if (!$hsba) {
             return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);

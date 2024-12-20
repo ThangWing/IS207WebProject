@@ -28,9 +28,8 @@ class PhongKhamSeeder extends Seeder
 
             // Tạo vị trí cho phòng khám
             $vitri = "Khu Khám bệnh - Tòa {$currentBuilding} - Tầng {$floor} - Phòng {$roomNumber}";
-
-            // Thêm phòng khám
             $phongkhamData[] = [
+                'tenphong' => "Phòng khám số {$roomNumber}",
                 'vitri' => $vitri,
                 'makhoa' => $makhoa,
             ];
@@ -54,4 +53,4 @@ class PhongKhamSeeder extends Seeder
         // Chèn dữ liệu vào bảng 'phongkham'
         DB::table('phongkham')->insert($phongkhamData);
     }
-}
+        }

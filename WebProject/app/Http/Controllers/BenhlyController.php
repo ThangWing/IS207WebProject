@@ -12,7 +12,7 @@ class BenhlyController extends Controller
      */
     public function index()
     {
-        $benhly = BenhLy::all();
+        $benhly = benhly::all();
         return response()->json($benhly);
     }
 
@@ -23,14 +23,14 @@ class BenhlyController extends Controller
             'tenbl' => 'required|string|max:200',
         ]);
 
-        $benhly = BenhLy::create($validated);
+        $benhly = benhly::create($validated);
         return response()->json($benhly, 201);
     }
 
     // Lấy thông tin chi tiết bệnh lý
     public function show($id)
     {
-        $benhly = BenhLy::find($id);
+        $benhly = benhly::find($id);
 
         if (!$benhly) {
             return response()->json(['message' => 'Bệnh lý không tồn tại'], 404);
@@ -42,7 +42,7 @@ class BenhlyController extends Controller
     // Cập nhật bệnh lý
     public function update(Request $request, $id)
     {
-        $benhly = BenhLy::find($id);
+        $benhly = benhly::find($id);
 
         if (!$benhly) {
             return response()->json(['message' => 'Bệnh lý không tồn tại'], 404);
@@ -59,7 +59,7 @@ class BenhlyController extends Controller
     // Xóa bệnh lý
     public function destroy($id)
     {
-        $benhly = BenhLy::find($id);
+        $benhly = benhly::find($id);
 
         if (!$benhly) {
             return response()->json(['message' => 'Bệnh lý không tồn tại'], 404);
