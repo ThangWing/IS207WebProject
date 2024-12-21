@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Hsba;
 use App\Models\Benhnhan;
+use App\Models\thuoc;
 use App\Http\Requests\StorehsbaRequest;
 use App\Http\Requests\UpdatehsbaRequest;
 use Illuminate\Http\Request;
@@ -12,16 +13,39 @@ use Illuminate\Http\Request;
 class HsbaController extends Controller
 {
     public function index()
-    {
-        try {
-            $records = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien','ctdts','thuoc','canls')->get();
-            return response()->json($records);
-        }
-        catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
-    }
+{
+    try {
+        // Lấy tất cả hồ sơ bệnh án và các quan hệ liên quan
+        $records = Hsba::with('benhnhan', 'ctba', 'donthuoc', 'ctcls', 'nhapvien', 'ctdts')->get();
 
+        // Duyệt qua từng hồ sơ bệnh án
+        $records->each(function ($hsba) {
+            // Tạo mảng để lưu tên thuốc từ `ctdt`
+            $thuocs = [];
+
+            // Duyệt qua các bản ghi trong `ctdts`
+            foreach ($hsba->ctdts as $ctdt) {
+                $thuoc = thuoc::find($ctdt->mathuoc); // Truy xuất tên thuốc dựa vào mathuoc
+                if ($thuoc) {
+                    $thuocs[] = [
+                        'mathuoc' => $thuoc->mathuoc,
+                        'tenthuoc' => $thuoc->tenthuoc,
+                        'soluong' => $ctdt->soluong,
+                    ];
+                }
+            }
+
+            // Gắn danh sách thuốc vào thuộc tính mới
+            $hsba->thuocs = $thuocs;
+        });
+
+        // Trả về JSON dữ liệu
+        return response()->json($records);
+    } catch (Exception $e) {
+        // Xử lý ngoại lệ và trả về lỗi
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
     // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
     public function store(Request $request)
     {
