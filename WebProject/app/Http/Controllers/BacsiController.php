@@ -10,7 +10,7 @@ class BacsiController extends Controller
     //
     public function index()
     {
-        $doctors = Bacsi::all();
+        $doctors = Bacsi::with('khoa','lichlamviec')->Get();
         return response()->json($doctors);
     }
 
@@ -36,7 +36,10 @@ class BacsiController extends Controller
     // Hiển thị thông tin một bác sĩ cụ thể
     public function show($id)
     {
-        $doctor = Bacsi::findOrFail($id);
+        $doctor = Bacsi::with('khoa','lichlamviec')->find($id);
+        if (!$doctor) {
+            return response()->json(['message' => 'Bác sĩ không tồn tại'], 404);
+        }
         return response()->json($doctor);
     }
 

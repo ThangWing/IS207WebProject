@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('phongkham', function (Blueprint $table) {
             $table->increments('mapk'); // Primary Key
+            $table->string('tenphong', 200);
             $table->string('vitri', 200); 
             $table->unsignedInteger('makhoa');
             $table->foreign('makhoa')->references('makhoa')->on('khoa')->onDelete('cascade');
@@ -23,7 +24,6 @@ return new class extends Migration
             $table->increments('makb');
             $table->unsignedInteger('mabn');
             $table->unsignedInteger('mapk');
-            $table->index(['mabn', 'mapk']);
             $table->foreign('mabn')->references('mabn')->on('benhnhan')->onDelete('cascade');
             $table->foreign('mapk')->references('mapk')->on('phongkham')->onDelete('cascade');
             $table->timestamps(); 
@@ -36,7 +36,7 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::dropIfExists('phongkham');
         Schema::dropIfExists('ctkhambenh');
+        Schema::dropIfExists('phongkham');
     }
 };

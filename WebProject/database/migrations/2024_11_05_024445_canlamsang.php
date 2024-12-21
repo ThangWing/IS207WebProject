@@ -26,12 +26,11 @@ return new class extends Migration
 
         Schema::create('ctcls', function (Blueprint $table) {
             $table->unsignedInteger('maba');
-            $table->unsignedInteger('mapxn');
+            $table->unsignedInteger('macls');
             $table->string('ketqua',300);
-            $table->primary(['maba', 'mapxn']);
-            $table->index(['maba', 'mapxn']);
+            $table->primary(['maba', 'macls']);
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
-            $table->foreign('mapxn')->references('mapxn')->on('phongxetnghiem')->onDelete('cascade');
+            $table->foreign('macls')->references('macls')->on('canls')->onDelete('cascade');
         });
     }
 

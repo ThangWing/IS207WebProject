@@ -6,31 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lichlamviec extends Model
 {
-    //
-    protected $table = 'lichlamviec';
-
-    // Tắt auto-increment vì không có cột khóa chính tự động tăng
-    public $incrementing = false;
-
+    protected $table = 'lichlamviec'; 
+    // Bảng tương ứng
+    protected $primaryKey = ['mabs', 'mapk', 'ngaylamviec', 'calamviec'];
+    // Khóa chính phức hợp
+    public $incrementing = false; 
+    // Không tự tăng ID
+    protected $keyType = 'string'; 
     // Kiểu dữ liệu của khóa chính
-    protected $keyType = 'string';
-
-    // Các cột có thể được gán giá trị
-    protected $fillable = [
-        'mabs',
-        'mapk',
-        'ngaylamviec',
-        'calamviec',
-    ];
+    protected $fillable = ['mabs', 'mapk', 'ngaylamviec', 'calamviec'];
 
     // Quan hệ với bảng BacSi
-    public function bacSi()
+    public function bacsi()
     {
         return $this->belongsTo(Bacsi::class, 'mabs', 'mabs');
     }
 
     // Quan hệ với bảng PhongKham
-    public function phongKham()
+    public function phongkham()
     {
         return $this->belongsTo(phongkham::class, 'mapk', 'mapk');
     }

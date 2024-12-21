@@ -4,24 +4,50 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Hsba;
 use App\Models\Benhnhan;
+use App\Models\thuoc;
 use App\Http\Requests\StorehsbaRequest;
 use App\Http\Requests\UpdatehsbaRequest;
+use Illuminate\Http\Request;
+
 
 class HsbaController extends Controller
 {
     public function index()
-    {
-        try {
-            $records = Hsba::with('benhnhan')->get();
-            return response()->json($records);
-        }
-        catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
-    }
+{
+    try {
+        // Lấy tất cả hồ sơ bệnh án và các quan hệ liên quan
+        $records = Hsba::with('benhnhan', 'ctba', 'donthuoc', 'ctcls', 'nhapvien', 'ctdts')->get();
 
+        // Duyệt qua từng hồ sơ bệnh án
+        $records->each(function ($hsba) {
+            // Tạo mảng để lưu tên thuốc từ `ctdt`
+            $thuocs = [];
+
+            // Duyệt qua các bản ghi trong `ctdts`
+            foreach ($hsba->ctdts as $ctdt) {
+                $thuoc = thuoc::find($ctdt->mathuoc); // Truy xuất tên thuốc dựa vào mathuoc
+                if ($thuoc) {
+                    $thuocs[] = [
+                        'mathuoc' => $thuoc->mathuoc,
+                        'tenthuoc' => $thuoc->tenthuoc,
+                        'soluong' => $ctdt->soluong,
+                    ];
+                }
+            }
+
+            // Gắn danh sách thuốc vào thuộc tính mới
+            $hsba->thuocs = $thuocs;
+        });
+
+        // Trả về JSON dữ liệu
+        return response()->json($records);
+    } catch (Exception $e) {
+        // Xử lý ngoại lệ và trả về lỗi
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
     // Tạo mới hồ sơ bệnh án cho một bệnh nhân xác định
-    public function store(StorehsbaRequest $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'mabn' => 'required|exists:benhnhan,mabn',
@@ -45,7 +71,7 @@ class HsbaController extends Controller
     // Lấy chi tiết một hồ sơ bệnh án
     public function show($id)
     {
-        $hsba = Hsba::with('benhnhan')->find($id);
+        $hsba = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien','ctdts','thuoc','canls')->find($id);
 
         if (!$hsba) {
             return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);
@@ -55,7 +81,7 @@ class HsbaController extends Controller
     }
 
     // Cập nhật thông tin hồ sơ bệnh án
-    public function update(UpdatehsbaRequest $request, $mabn, $maba)
+    public function update(Request $request, $mabn, $maba)
     {
         $hsba = Hsba::find($maba);
 

@@ -3,28 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lichlamviec;
-use App\Http\Requests\StoreLichlamviecRequest;
-use App\Http\Requests\UpdateLichlamviecRequest;
+use Illuminate\Http\Request;
 
 class LichlamviecController extends Controller
 {
     public function index()
     {
-        $lichLamViec = LichLamViec::with(['bacSi', 'phongKham'])->get();
-        return response()->json($lichLamViec);
-    }
+        try {
+            $lichLamViec = Lichlamviec::with(['bacsi', 'phongkham'])->get();
+            return response()->json($lichLamViec); // Đảm bảo luôn trả về JSON
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+}
 
     // Tạo mới một lịch làm việc
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'mabs' => 'required|string|exists:bac_si,mabs',
-            'mapk' => 'required|string|exists:phong_kham,mapk',
+            'mabs' => 'required|string|exists:bacsi,mabs',
+            'mapk' => 'required|string|exists:phongkham,mapk',
             'ngaylamviec' => 'required|date',
             'calamviec' => 'required|string|max:20',
         ]);
 
-        $lichLamViec = LichLamViec::create($validated);
+        $lichLamViec = Lichlamviec::create($validated);
 
         return response()->json(['message' => 'Lịch làm việc được tạo thành công!', 'data' => $lichLamViec], 201);
     }
@@ -32,7 +35,7 @@ class LichlamviecController extends Controller
     // Lấy chi tiết một lịch làm việc
     public function show($mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        $lichLamViec = LichLamViec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
+        $lichLamViec = Lichlamviec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
 
         if (!$lichLamViec) {
             return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);
@@ -44,7 +47,7 @@ class LichlamviecController extends Controller
     // Cập nhật một lịch làm việc
     public function update(Request $request, $mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        $lichLamViec = LichLamViec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
+        $lichLamViec = Lichlamviec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
 
         if (!$lichLamViec) {
             return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);
@@ -62,7 +65,7 @@ class LichlamviecController extends Controller
     // Xóa một lịch làm việc
     public function destroy($mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        $lichLamViec = LichLamViec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
+        $lichLamViec = Lichlamviec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
 
         if (!$lichLamViec) {
             return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);
@@ -72,4 +75,20 @@ class LichlamviecController extends Controller
 
         return response()->json(['message' => 'Xóa thành công!']);
     }
+
+    public function showByMapk($mapk)
+    {
+        try {
+            $lichLamViec = Lichlamviec::where('mapk', $mapk)->with(['bacsi', 'phongkham'])->get();
+
+            if ($lichLamViec->isEmpty()) {
+                return response()->json(['message' => 'Không tìm thấy lịch làm việc cho phòng khám này!'], 404);
+            }
+
+            return response()->json($lichLamViec);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 }

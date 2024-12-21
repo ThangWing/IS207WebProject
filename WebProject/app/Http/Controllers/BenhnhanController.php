@@ -9,7 +9,7 @@ class BenhnhanController extends Controller
 {
     public function index()
     {
-        $benhnhans = Benhnhan::all();
+        $benhnhans = Benhnhan::with('bhyt')->get();;
         return response()->json($benhnhans, 200);
     }
 
@@ -37,7 +37,7 @@ class BenhnhanController extends Controller
     // Lấy thông tin chi tiết một bệnh nhân
     public function show($id)
     {
-        $benhnhan = Benhnhan::find($id);
+        $benhnhan = Benhnhan::with('bhyt')->find($id);
 
         if (!$benhnhan) {
             return response()->json(['message' => 'Bệnh nhân không tồn tại'], 404);
@@ -45,6 +45,7 @@ class BenhnhanController extends Controller
 
         return response()->json($benhnhan, 200);
     }
+
 
     // Cập nhật thông tin bệnh nhân
     public function update(Request $request, $id)
@@ -82,8 +83,12 @@ class BenhnhanController extends Controller
             return response()->json(['message' => 'Bệnh nhân không tồn tại'], 404);
         }
 
+        // Xóa Bhyt liên quan
+        $benhnhan->bhyt()->delete();
+
+        // Xóa Bệnh nhân
         $benhnhan->delete();
 
-        return response()->json(['message' => 'Bệnh nhân đã được xóa thành công'], 200);
+        return response()->json(['message' => 'Bệnh nhân và bảo hiểm y tế liên quan đã được xóa thành công'], 200);
     }
 }
