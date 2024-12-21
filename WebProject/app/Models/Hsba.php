@@ -61,7 +61,7 @@ class Hsba extends Model
     public function canls()
     {
         return $this->hasManyThrough(
-            Canls::class,    // Model cuối (Cận lâm sàng)
+            canlamsang::class,    // Model cuối (Cận lâm sàng)
             Ctcls::class,    // Model trung gian (Chi tiết cận lâm sàng)
             'maba',          // Khóa ngoại trong bảng CTCLS (HSBA -> CTCLS)
             'macls',         // Khóa ngoại trong bảng Canls (CTCLS -> Canls)
