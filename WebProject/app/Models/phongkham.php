@@ -16,6 +16,7 @@ class phongkham extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'tenphong',
         'tenkhoa',
         'vitri', 
         'makhoa'

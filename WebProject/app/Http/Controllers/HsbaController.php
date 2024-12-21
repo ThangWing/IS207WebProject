@@ -16,7 +16,7 @@ class HsbaController extends Controller
 {
     try {
         // Lấy tất cả hồ sơ bệnh án và các quan hệ liên quan
-        $records = Hsba::with('benhnhan', 'ctba', 'donthuoc', 'ctcls', 'nhapvien', 'ctdts')->get();
+        $records = Hsba::with('benhnhan', 'ctba', 'donthuoc', 'ctcls', 'nhapvien', 'ctdts','canls')->get();
 
         // Duyệt qua từng hồ sơ bệnh án
         $records->each(function ($hsba) {
@@ -71,7 +71,22 @@ class HsbaController extends Controller
     // Lấy chi tiết một hồ sơ bệnh án
     public function show($id)
     {
-        $hsba = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien','ctdts','thuoc','canls')->find($id);
+        $hsba = Hsba::with('benhnhan','ctba','donthuoc','ctcls','nhapvien','ctdts','canls')->find($id);
+
+            // Tạo mảng để lưu tên thuốc từ `ctdt`
+            $thuocs = [];
+
+            // Duyệt qua các bản ghi trong `ctdts`
+            foreach ($hsba->ctdts as $ctdt) {
+                $thuoc = thuoc::find($ctdt->mathuoc); // Truy xuất tên thuốc dựa vào mathuoc
+                if ($thuoc) {
+                    $thuocs[] = [
+                        'mathuoc' => $thuoc->mathuoc,
+                        'tenthuoc' => $thuoc->tenthuoc,
+                        'soluong' => $ctdt->soluong,
+                    ];
+                }
+            }
 
         if (!$hsba) {
             return response()->json(['message' => 'Hồ sơ bệnh án không tồn tại'], 404);

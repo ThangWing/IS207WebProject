@@ -15,6 +15,9 @@ use App\Http\Controllers\HoadonController;
 use App\Http\Controllers\CtkhambenhController;
 use App\Http\Controllers\BhytController;
 use App\Http\Controllers\LichlamviecController;
+use App\Http\Controllers\PhongkhamController;
+use App\Http\Controllers\PhongxetnghiemController;
+use App\Http\Controllers\PhongbenhController;
 
 
 Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
@@ -134,3 +137,45 @@ Route::delete('/ctkhambenh/{id}', [CtkhambenhController::class, 'delete']);
 
 // Đếm số lượng khám bệnh trong ngày
 Route::get('/ctkhambenh/count-today', [CtkhambenhController::class, 'countToday']);
+
+Route::get('/phongkham', [PhongkhamController::class, 'index']);
+
+// Lấy thông tin chi tiết một phòng khám theo ID
+Route::get('/phongkham/{id}', [PhongkhamController::class, 'show']);
+
+// Thêm mới một phòng khám
+Route::post('/phongkham', [PhongkhamController::class, 'store']);
+
+// Cập nhật thông tin phòng khám
+Route::put('/phongkham/{id}', [PhongkhamController::class, 'update']);
+
+// Xóa một phòng khám
+Route::delete('/phongkham/{id}', [PhongkhamController::class, 'delete']);
+
+Route::get('/pxn', [PhongxetnghiemController::class, 'index']);
+
+// Lấy thông tin chi tiết một phòng theo ID
+Route::get('/pxn/{id}', [PhongxetnghiemController::class, 'show']);
+
+// Thêm mới một phòng 
+Route::post('/pxn', [PhongxetnghiemController::class, 'store']);
+
+// Cập nhật thông tin phòng 
+Route::put('/pxn/{id}', [PhongxetnghiemController::class, 'update']);
+
+// Xóa một phòng 
+Route::delete('/pxn/{id}', [PhongxetnghiemController::class, 'delete']);
+
+Route::get('/phongbenh', [PhongbenhController::class, 'index']);
+
+// Lấy thông tin chi tiết một phòng bệnh
+Route::get('/phongbenh/{id}', [PhongbenhController::class, 'show']);
+
+// Tạo mới một phòng bệnh
+Route::post('/phongbenh', [PhongbenhController::class, 'store']);
+
+// Cập nhật thông tin phòng bệnh
+Route::put('/phongbenh/{id}', [PhongbenhController::class, 'update']);
+
+// Xóa một phòng bệnh
+Route::delete('/phongbenh/{id}', [PhongbenhController::class, 'destroy']);

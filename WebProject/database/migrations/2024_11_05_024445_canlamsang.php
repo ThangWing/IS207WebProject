@@ -21,7 +21,9 @@ return new class extends Migration
         Schema::create('phongxetnghiem', function (Blueprint $table) {
             $table->increments('mapxn'); // Primary Key
             $table->unsignedInteger('macls'); 
+            $table->string('tenphong', 200); 
             $table->string('vitri',200); 
+            $table->foreign('macls')->references('macls')->on('canls')->onDelete('cascade');
         });
 
         Schema::create('ctcls', function (Blueprint $table) {

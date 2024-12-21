@@ -20,6 +20,7 @@ return new class extends Migration
         //
         Schema::create('phongbenh', function (Blueprint $table) {
             $table->increments('mapb'); // Primary Key
+            $table->string('tenphong', 200); 
             $table->string('vitri', 200); 
             $table->string('loaidv',100);
             $table->unsignedInteger('makhoa');

@@ -18,6 +18,7 @@ class phongbenh extends Model
     protected $keyType = 'int';
 
     protected $fillable = [
+        'tenphong',
         'vitri',
         'loaidv',
         'makhoa',
