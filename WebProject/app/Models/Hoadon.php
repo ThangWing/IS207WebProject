@@ -2,20 +2,43 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Hoadon extends Model
+class HoaDon extends Model
 {
-    // use HasFactory;
-
     protected $table = 'hoadon';
-    protected $primaryKey = 'mahd';
-    protected $fillable = ['maba', 'tongtien', 'ghichu', 'thanhtoan'];
+    
+    protected $fillable = [
+        'ma_hoadon',
+        'hsba_id',
+        'tong_tien',
+        'ghi_chu',
+        'trang_thai',
+        'thoi_gian_tao'
+    ];
 
-    // Liên kết với bảng hồ sơ bệnh án (Hsba)
-    public function benhan()
+    protected $dates = [
+        'thoi_gian_tao',
+        'created_at',
+        'updated_at'
+    ];
+
+    // Relationship với HSBA
+    public function hsba()
     {
-        return $this->belongsTo(Hsba::class, 'maba', 'maba');
+        return $this->belongsTo(HSBA::class, 'hsba_id', 'id');
+    }
+
+    // Tính tổng tiền từ CTCLS và đơn thuốc
+    public function tinhTongTien()
+    {
+        $tongTienCLS = $this->hsba->ctcls()->sum('gia');
+        
+        $tongTienThuoc = $this->hsba->ctdts()
+            ->join('thuoc', 'ctdt.thuoc_id', '=', 'thuoc.id')
+            ->selectRaw('SUM(ctdt.so_luong * thuoc.gia) as tong')
+            ->value('tong');
+
+        return $tongTienCLS + $tongTienThuoc;
     }
 }
