@@ -10,11 +10,18 @@ class Hsba extends Model
     // use HasFactory;
 
     protected $table = 'hsba';
+    
     protected $primaryKey = 'maba';
 
     protected $fillable = [
+        'mabn',
         'nhapvien',
-        'ghichu'
+        'chieucao',
+        'cannang',
+        'huyetap',
+        'mach',
+        'trieuchung',
+        'ghichu',
     ];
 
     // Quan hệ với bảng `ctba`
