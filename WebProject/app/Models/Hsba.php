@@ -58,4 +58,27 @@ class Hsba extends Model
             'madt'             // Khóa chính của bảng DonThuoc
         );
     }
+    public function canls()
+    {
+        return $this->hasManyThrough(
+            Canls::class,    // Model cuối (Cận lâm sàng)
+            Ctcls::class,    // Model trung gian (Chi tiết cận lâm sàng)
+            'maba',          // Khóa ngoại trong bảng CTCLS (HSBA -> CTCLS)
+            'macls',         // Khóa ngoại trong bảng Canls (CTCLS -> Canls)
+            'maba',          // Khóa chính của bảng HSBA
+            'macls'          // Khóa chính của bảng CTCLS
+        );
+    }
+
+    public function thuoc()
+    {
+        return $this->hasManyThrough(
+            Thuoc::class,      // Model cuối: Thuốc
+            Ctdt::class,       // Model trung gian: CTDT
+            'madt',            // Khóa ngoại trong bảng CTDT trỏ tới Donthuoc
+            'mathuoc',         // Khóa ngoại trong bảng Thuoc trỏ tới CTDT
+            'maba',            // Khóa chính trong bảng HSBA
+            'madt'             // Khóa chính trong bảng Donthuoc
+        );
+    }
 }

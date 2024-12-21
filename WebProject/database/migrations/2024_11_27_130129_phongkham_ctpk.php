@@ -24,7 +24,6 @@ return new class extends Migration
             $table->increments('makb');
             $table->unsignedInteger('mabn');
             $table->unsignedInteger('mapk');
-            $table->index(['mabn', 'mapk']);
             $table->foreign('mabn')->references('mabn')->on('benhnhan')->onDelete('cascade');
             $table->foreign('mapk')->references('mapk')->on('phongkham')->onDelete('cascade');
             $table->timestamps(); 
