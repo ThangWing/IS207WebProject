@@ -16,6 +16,7 @@ use App\Http\Controllers\CtkhambenhController;
 use App\Http\Controllers\BhytController;
 use App\Http\Controllers\LichlamviecController;
 
+
 Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
 Route::post('/lichlamviec', [LichlamviecController::class, 'store']);
 Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'show']);
@@ -116,9 +117,20 @@ Route::prefix('bhyt')->group(function () {
     Route::delete('/{id}', [BhytController::class, 'destroy']);      // Xóa BHYT
 });
 
-Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
-Route::post('/lichlamviec', [LichlamviecController::class, 'store']);
-Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'show']);
-Route::put('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'update']);
-Route::delete('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'destroy']);
-Route::get('/lichlamviec/phongkham/{mapk}', [LichlamviecController::class, 'showByMapk']);
+
+Route::get('/ctkhambenh', [CtkhambenhController::class, 'index']);
+
+// Lấy chi tiết một ctkhambenh theo ID
+Route::get('/ctkhambenh/{id}', [CtkhambenhController::class, 'show']);
+
+// Thêm mới ctkhambenh
+Route::post('/ctkhambenh', [CtkhambenhController::class, 'store']);
+
+// Cập nhật ctkhambenh
+Route::put('/ctkhambenh/{id}', [CtkhambenhController::class, 'update']);
+
+// Xóa ctkhambenh
+Route::delete('/ctkhambenh/{id}', [CtkhambenhController::class, 'delete']);
+
+// Đếm số lượng khám bệnh trong ngày
+Route::get('/ctkhambenh/count-today', [CtkhambenhController::class, 'countToday']);
