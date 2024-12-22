@@ -20,16 +20,22 @@ class LichlamviecController extends Controller
     // Tạo mới một lịch làm việc
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'mabs' => 'required|string|exists:bacsi,mabs',
-            'mapk' => 'required|string|exists:phongkham,mapk',
-            'ngaylamviec' => 'required|date',
-            'calamviec' => 'required|string|max:20',
-        ]);
-
-        $lichLamViec = Lichlamviec::create($validated);
-
-        return response()->json(['message' => 'Lịch làm việc được tạo thành công!', 'data' => $lichLamViec], 201);
+        try {
+            $validated = $request->validate([
+                'mabs' => 'required|string|exists:bacsi,mabs',
+                'mapk' => 'required|string|exists:phongkham,mapk',
+                'ngaylamviec' => 'required|date',
+                'calamviec' => 'required|string|max:20',
+            ]);
+        
+            $lichLamViec = Lichlamviec::create($validated);
+        
+            return response()->json(['message' => 'Lịch làm việc được tạo thành công!', 'data' => $lichLamViec], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Đã có lỗi xảy ra.', 'message' => $e->getMessage()], 500);
+        }
     }
 
     // Lấy chi tiết một lịch làm việc
@@ -65,7 +71,7 @@ class LichlamviecController extends Controller
     // Xóa một lịch làm việc
     public function destroy($mabs, $mapk, $ngaylamviec, $calamviec)
     {
-        $lichLamViec = Lichlamviec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'))->first();
+        $lichLamViec = Lichlamviec::where(compact('mabs', 'mapk', 'ngaylamviec', 'calamviec'));
 
         if (!$lichLamViec) {
             return response()->json(['message' => 'Không tìm thấy lịch làm việc!'], 404);

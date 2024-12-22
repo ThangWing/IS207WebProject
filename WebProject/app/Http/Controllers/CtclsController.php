@@ -10,11 +10,11 @@ class CtclsController extends Controller
 {
 
 // Thêm mới CTCLS
-    public function createCtcls(Request $request)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'maba' => 'required|integer',
-            'mapxn' => 'required|integer',
+            'macls' => 'required|integer',
             'ketqua' => 'nullable|string|max:300',
         ]);
 
@@ -28,14 +28,14 @@ class CtclsController extends Controller
     }
 
     // Cập nhật CTCLS
-    public function updateCtcls(Request $request, $maba, $mapxn)
+    public function update(Request $request, $maba, $macls)
     {
         $validatedData = $request->validate([
             'ketqua' => 'nullable|string|max:300',
         ]);
 
         $ctcls = Ctcls::where('maba', $maba)
-            ->where('mapxn', $mapxn)
+            ->where('macls', $mapxn)
             ->firstOrFail();
 
         $ctcls->update($validatedData);
@@ -48,10 +48,10 @@ class CtclsController extends Controller
     }
 
     // Xóa CTCLS
-    public function deleteCtcls($maba, $mapcn)
+    public function destroy($maba, $mapcn)
     {
         $ctcls = Ctcls::where('maba', $maba)
-            ->where('mapcn', $mapcn)
+            ->where('macls', $mapcn)
             ->firstOrFail();
 
         $ctcls->delete();
@@ -61,23 +61,4 @@ class CtclsController extends Controller
             'message' => 'CTCLS deleted successfully!',
         ]);
     }
-
-// Truy vấn getTenCtCls
-    public function getCtclsDetails($maba)
-    {
-    $results = DB::table('ctcls')
-        ->join('phongchucnang', function ($join) {
-            $join->on('ctcls.mapcn', '=', 'phongchucnang.mapcn')
-                 ->on('ctcls.macls', '=', 'phongchucnang.macls');
-        })
-        ->join('canlamsang', 'phongchucnang.macls', '=', 'canlamsang.macls')
-        ->where('ctcls.maba', $maba)
-        ->select('canlamsang.macls', 'canlamsang.tencls', 'ctcls.ketqua')
-        ->get();
-
-    return response()->json([
-        'status' => 'success',
-        'data' => $results,
-    ]);
-}
 }

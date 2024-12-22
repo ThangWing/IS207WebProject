@@ -14,19 +14,6 @@ class NhanvienController extends Controller
         return response()->json($employees);
     }
 
-    // Tìm kiếm nhân viên
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $employees = Nhanvien::where('tennv', 'like', "%{$keyword}%")
-            ->orWhere('email', 'like', "%{$keyword}%")
-            ->orWhere('sdt', 'like', "%{$keyword}%")
-            ->with('phongban', 'congviec')
-            ->get();
-
-        return response()->json($employees);
-    }
-
     // Tạo mới nhân viên
     public function store(Request $request)
     {

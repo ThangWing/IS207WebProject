@@ -11,10 +11,10 @@ class Lichlamviec extends Model
     protected $primaryKey = ['mabs', 'mapk', 'ngaylamviec', 'calamviec'];
     // Khóa chính phức hợp
     public $incrementing = false; 
-    // Không tự tăng ID
-    protected $keyType = 'string'; 
     // Kiểu dữ liệu của khóa chính
     protected $fillable = ['mabs', 'mapk', 'ngaylamviec', 'calamviec'];
+
+    public $timestamps = false;
 
     // Quan hệ với bảng BacSi
     public function bacsi()

@@ -18,6 +18,7 @@ use App\Http\Controllers\LichlamviecController;
 use App\Http\Controllers\PhongkhamController;
 use App\Http\Controllers\PhongxetnghiemController;
 use App\Http\Controllers\PhongbenhController;
+use App\Http\Controllers\CtdtController;
 
 
 Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
@@ -70,10 +71,9 @@ Route::post('/doctors', [BacsiController::class, 'store']);
 Route::get('/doctors/{id}', [BacsiController::class, 'show']);
 Route::delete('/doctors/{id}', [BacsiController::class, 'destroy']);
 
-Route::get('/ctcls/details/{maba}', [CtclsController::class, 'getCtclsDetails']);
-Route::post('/ctcls', [CtclsController::class, 'createCtcls']);
-Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'updateCtcls']);
-Route::delete('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'deleteCtcls']);
+Route::post('/ctcls', [CtclsController::class, 'store']);
+Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'update']);
+Route::delete('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'destroy']);
 
 Route::controller(CtnhapvienController::class)->group(function () {
 Route::post('/ctnhapvien', 'store'); // Thêm
@@ -179,3 +179,9 @@ Route::put('/phongbenh/{id}', [PhongbenhController::class, 'update']);
 
 // Xóa một phòng bệnh
 Route::delete('/phongbenh/{id}', [PhongbenhController::class, 'destroy']);
+
+Route::get('/ctdt', [CtdtController::class, 'index']);
+Route::get('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'show']);
+Route::post('/ctdt', [CtdtController::class, 'store']);
+Route::put('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'update']);
+Route::delete('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'destroy']);

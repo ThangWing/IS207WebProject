@@ -13,7 +13,7 @@ class Ctcls extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = ['maba', 'mapcn'];
+    protected $primaryKey = ['maba', 'macls'];
 
     public $incrementing = false;
 
@@ -21,7 +21,7 @@ class Ctcls extends Model
 
     protected $fillable = [
         'maba',
-        'mapcn',
+        'macls',
         'ketqua',
     ];
 
@@ -30,8 +30,8 @@ class Ctcls extends Model
         return $this->belongsTo(Hsba::class, 'maba');
     }
 
-    public function phongChucNang()
+    public function canlamsang()
     {
-        return $this->belongsTo(phongxetnghiem::class, 'mapcn', 'mapcn');
+        return $this->belongsTo(canlamsang::class, 'macls', 'macls');
     }
 }
