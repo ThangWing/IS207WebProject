@@ -35,7 +35,7 @@ class CtclsController extends Controller
         ]);
 
         $ctcls = Ctcls::where('maba', $maba)
-            ->where('macls', $mapxn)
+            ->where('macls', $macls)
             ->firstOrFail();
 
         $ctcls->update($validatedData);
