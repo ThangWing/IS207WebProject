@@ -45,7 +45,7 @@ class Hsba extends Model
     // Quan hệ với bảng `ctnhapvien`
     public function nhapvien()
     {
-        return $this->hasMany(Ctnhapvien::class, 'maba');
+        return $this->hasOne(Ctnhapvien::class, 'maba');
     }
 
     // Quan hệ với bệnh nhân
