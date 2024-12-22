@@ -60,8 +60,8 @@ class BenhnhanController extends Controller
             'tenbn' => 'sometimes|required|string|max:100',
             'ngsinh' => 'sometimes|required|date',
             'gioitinh' => 'sometimes|required|string|max:10',
-            'cccd' => 'sometimes|required|integer|unique:benhnhan,cccd,' . $id . ',mabn',
-            'sdt' => 'sometimes|required|integer|unique:benhnhan,sdt,' . $id . ',mabn',
+            'cccd' => 'sometimes|required|string|unique:benhnhan,cccd,' . $id . ',mabn',
+            'sdt' => 'sometimes|required|string|unique:benhnhan,sdt,' . $id . ',mabn',
             'diachi' => 'sometimes|required|string|max:100',
             'ghichu' => 'nullable|string|max:200',
         ]);
