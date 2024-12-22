@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class HoaDon extends Model
 {
     protected $table = 'hoadon';
+
+    protected $primaryKey = 'mahd';
     
+    public $incrementing = true;
+
     protected $fillable = [
-        'ma_hoadon',
-        'hsba_id',
+        'maba',
         'tong_tien',
         'ghi_chu',
         'trang_thai',

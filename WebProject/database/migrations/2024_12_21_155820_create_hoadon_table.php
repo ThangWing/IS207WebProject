@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hoadon', function (Blueprint $table) {
-            $table->id();
-            $table->string('ma_hoadon')->unique();
-            $table->foreignId('hsba_id')->constrained('hsba')->onDelete('cascade');
+            $table->increments('mahd');
+            $table->unsignedInteger('maba');
             $table->decimal('tong_tien', 15, 2);
-            $table->text('ghi_chu')->nullable();
+            $table->string('ghi_chu',200)->nullable();
             $table->enum('trang_thai', ['chua_thanh_toan', 'da_thanh_toan'])->default('chua_thanh_toan');
             $table->timestamp('thoi_gian_tao')->nullable();
             $table->timestamps();
+            $table->foreign('maba')->references('maba')->on('hsba')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

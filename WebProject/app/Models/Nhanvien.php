@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Nhanvien extends Models
 {
-    use HasFactory;
-
     // Tên bảng trong cơ sở dữ liệu
     protected $table = 'nhanvien';
+
+    public $incrementing = true;
+
+    protected $primaryKey = 'manv';
 
     // Các thuộc tính có thể được gán hàng loạt
     protected $fillable = [
@@ -23,16 +25,4 @@ class Nhanvien extends Models
         'chucvu',     // Chức vụ
         'maphongban'  // Mã phòng ban
     ];
-
-    // Mối quan hệ với bảng Phongban
-    public function phongban()
-    {
-        return $this->belongsTo(Phongban::class, 'maphongban', 'id');
-    }
-
-    // Mối quan hệ với bảng Congviec (nếu có nhiều công việc)
-    public function congviec()
-    {
-        return $this->hasMany(Congviec::class, 'manhanvien', 'id');
-    }
 }
