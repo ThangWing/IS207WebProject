@@ -48,10 +48,10 @@ class CtclsController extends Controller
     }
 
     // Xóa CTCLS
-    public function destroy($maba, $mapcn)
+    public function destroy($maba, $mapxn)
     {
         $ctcls = Ctcls::where('maba', $maba)
-            ->where('macls', $mapcn)
+            ->where('macls', $mapxn)
             ->firstOrFail();
 
         $ctcls->delete();

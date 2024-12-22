@@ -18,7 +18,8 @@ use App\Http\Controllers\LichlamviecController;
 use App\Http\Controllers\PhongkhamController;
 use App\Http\Controllers\PhongxetnghiemController;
 use App\Http\Controllers\PhongbenhController;
-use App\Http\Controllers\CtdtController;
+
+use App\Http\Controllers\DonthuocController;
 
 
 Route::get('/lichlamviec', [LichlamviecController::class, 'index']);
@@ -185,3 +186,8 @@ Route::get('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'show']);
 Route::post('/ctdt', [CtdtController::class, 'store']);
 Route::put('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'update']);
 Route::delete('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'destroy']);
+
+Route::post('/donthuoc', [DonthuocController::class, 'store']);          // Tạo mới đơn thuốc
+Route::get('/donthuoc/{id}', [DonthuocController::class, 'show']);       // Xem chi tiết đơn thuốc
+Route::put('/donthuoc/{id}', [DonthuocController::class, 'update']);     // Cập nhật đơn thuốc
+Route::delete('/donthuoc/{id}', [DonthuocController::class, 'destroy']); //
