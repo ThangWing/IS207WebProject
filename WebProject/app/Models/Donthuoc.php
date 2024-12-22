@@ -8,12 +8,14 @@ class Donthuoc extends Model
 {
     //
     // use HasFactory;
+    public $timestamps = false;
 
     protected $table = 'donthuoc';
     protected $primaryKey = 'madt';
 
     protected $fillable = [
         'ghichu',
+        'maba',
     ];
 
     public function hsba()

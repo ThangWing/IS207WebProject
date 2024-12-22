@@ -18,7 +18,7 @@ use App\Http\Controllers\LichlamviecController;
 use App\Http\Controllers\PhongkhamController;
 use App\Http\Controllers\PhongxetnghiemController;
 use App\Http\Controllers\PhongbenhController;
-
+use App\Http\Controllers\CtdtController;
 use App\Http\Controllers\DonthuocController;
 
 
