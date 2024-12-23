@@ -121,6 +121,11 @@ Route::prefix('bhyt')->group(function () {
     Route::delete('/{id}', [BhytController::class, 'destroy']);      // Xóa BHYT
 });
 
+Route::post('/donthuoc', [DonthuocController::class, 'store']);          // Tạo mới đơn thuốc
+Route::get('/donthuoc/{id}', [DonthuocController::class, 'show']);       // Xem chi tiết đơn thuốc
+Route::put('/donthuoc/{id}', [DonthuocController::class, 'update']);     // Cập nhật đơn thuốc
+Route::delete('/donthuoc/{id}', [DonthuocController::class, 'destroy']); //
+Route::get('/donthuoc', [DonthuocController::class, 'index']); 
 
 Route::get('/ctkhambenh', [CtkhambenhController::class, 'index']);
 
@@ -186,9 +191,4 @@ Route::get('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'show']);
 Route::post('/ctdt', [CtdtController::class, 'store']);
 Route::put('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'update']);
 Route::delete('/ctdt/{madt}/{mathuoc}', [CtdtController::class, 'destroy']);
-
-Route::get('/donthuoc', [DonthuocController::class, 'index']);  
-Route::post('/donthuoc', [DonthuocController::class, 'store']);          // Tạo mới đơn thuốc
-Route::get('/donthuoc/{id}', [DonthuocController::class, 'show']);       // Xem chi tiết đơn thuốc
-Route::put('/donthuoc/{id}', [DonthuocController::class, 'update']);     // Cập nhật đơn thuốc
-Route::delete('/donthuoc/{id}', [DonthuocController::class, 'destroy']); //
+ 

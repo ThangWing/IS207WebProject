@@ -76,4 +76,16 @@ class Hsba extends Model
             'macls'          // Khóa chính của bảng CTCLS
         );
     }
+
+    public function benhly()
+    {
+        return $this->hasManyThrough(
+            benhly::class,    // Model cuối (Cận lâm sàng)
+            ctba::class,    // Model trung gian (Chi tiết cận lâm sàng)
+            'maba',          // Khóa ngoại trong bảng CTCLS (HSBA -> CTCLS)
+            'mabl',         // Khóa ngoại trong bảng Canls (CTCLS -> Canls)
+            'maba',          // Khóa chính của bảng HSBA
+            'mabl'          // Khóa chính của bảng CTCLS
+        );
+    }
 }
