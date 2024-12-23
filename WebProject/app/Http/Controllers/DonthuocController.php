@@ -7,6 +7,12 @@ use App\Models\Donthuoc;
 
 class DonthuocController extends Controller
 {
+    public function index()
+    {
+        $donthuoc = Donthuoc::all();
+        return response()->json($donthuoc, 200);
+    }
+
     //
     public function store(Request $request)
     {
