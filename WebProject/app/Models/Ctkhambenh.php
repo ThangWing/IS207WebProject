@@ -12,7 +12,7 @@ class Ctkhambenh extends Model
     public $incrementing = true; // Sử dụng tự tăng
     protected $keyType = 'int'; // Kiểu dữ liệu int
 
-    public $timestamps = true; // Bật timestamps
+    // public $timestamps = true; // Bật timestamps
 
     protected $fillable = [
         'mabn',
