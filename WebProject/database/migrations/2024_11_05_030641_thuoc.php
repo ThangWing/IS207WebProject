@@ -24,7 +24,7 @@ return new class extends Migration
         Schema::create('donthuoc', function (Blueprint $table) {
             $table->increments('madt');
             $table->unsignedInteger('maba');
-            $table->string('ghichu', 200);
+            $table->string('ghichu', 200)->nullable();
             $table->foreign('maba')->references('maba')->on('hsba')->onDelete('cascade');
         });
 

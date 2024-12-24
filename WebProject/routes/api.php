@@ -28,7 +28,7 @@ Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecC
 Route::put('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'update']);
 Route::delete('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'destroy']);
 Route::get('/lichlamviec/phongkham/{mapk}', [LichlamviecController::class, 'showByMapk']);
-Route::get('/lichlamviec/phongkham/{mabs}', [LichlamviecController::class, 'showByMabs']);
+Route::get('/lichlamviec/bacsi/{mabs}', [LichlamviecController::class, 'showByMabs']);
 
 Route::get('/thuoc', [thuocController::class, 'index']);
 
