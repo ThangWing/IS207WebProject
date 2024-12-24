@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BenhnhanSeeder::class);
         $this->call(BHYTSeeder::class);
         $this->call(PhongxetnghiemSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
