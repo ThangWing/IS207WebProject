@@ -42,6 +42,14 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Dược sĩ',
+                'email' => 'ds@bv.com',
+                'password' =>'ds123', // Mật khẩu cho nhân viên
+                'role' => 4, // Vai trò nhân viên
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
