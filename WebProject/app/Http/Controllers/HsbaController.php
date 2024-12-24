@@ -16,7 +16,7 @@ class HsbaController extends Controller
 {
     try {
         // Lấy tất cả hồ sơ bệnh án và các quan hệ liên quan
-        $records = Hsba::with('benhnhan', 'ctba', 'donthuoc', 'ctcls', 'nhapvien', 'ctdts','canls','benhly')->get();
+        $records = Hsba::with('benhnhan', 'ctba', 'donthuoc', 'ctcls', 'nhapvien', 'ctdts','canls','benhly','hoadon')->get();
 
         // Duyệt qua từng hồ sơ bệnh án
         $records->each(function ($hsba) {
@@ -31,6 +31,9 @@ class HsbaController extends Controller
                         'mathuoc' => $thuoc->mathuoc,
                         'tenthuoc' => $thuoc->tenthuoc,
                         'soluong' => $ctdt->soluong,
+                        'donvi' => $thuoc->donvi,
+                        'dongia' => $thuoc->dongia,
+                        'ghichu' => $thuoc->ghichu,
                     ];
                 }
             }

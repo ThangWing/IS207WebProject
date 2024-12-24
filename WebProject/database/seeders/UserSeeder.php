@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin User',
                 'email' => 'admin@example.com',
-                'password' => Hash::make('admin123'), // Mật khẩu cho admin
+                'password' =>'admin123', // Mật khẩu cho admin
                 'role' => 1, // Vai trò admin
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Doctor Tâm',
                 'email' => 'tamvh@bv.com',
-                'password' => Hash::make('doctor123'), // Mật khẩu cho bác sĩ
+                'password' => 'doctor123', // Mật khẩu cho bác sĩ
                 'role' => 2, // Vai trò bác sĩ
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Lễ Tân',
                 'email' => 'staff@example.com',
-                'password' => Hash::make('staff123'), // Mật khẩu cho nhân viên
+                'password' =>'staff123', // Mật khẩu cho nhân viên
                 'role' => 3, // Vai trò nhân viên
                 'created_at' => now(),
                 'updated_at' => now(),

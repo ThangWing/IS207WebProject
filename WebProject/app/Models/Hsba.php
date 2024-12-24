@@ -48,6 +48,11 @@ class Hsba extends Model
         return $this->hasOne(Ctnhapvien::class, 'maba');
     }
 
+    public function hoadon()
+    {
+        return $this->hasOne(HoaDon::class, 'maba');
+    }
+
     // Quan hệ với bệnh nhân
     public function benhnhan()
     {
