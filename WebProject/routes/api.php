@@ -103,13 +103,6 @@ Route::get('/hoadon/{id}', [HoadonController::class, 'show']);   // Get details 
 Route::put('/hoadon/{id}', [HoadonController::class, 'updateStatus']); // Update a specific invoice
 Route::delete('/hoadon/{id}', [HoadonController::class, 'destroy']); // Delete a specific invoice
 
-Route::get('/', [CtkhambenhController::class, 'index']);
-Route::get('/{makb}', [CtkhambenhController::class, 'show']);
-Route::post('/create-and-count', [CtkhambenhController::class, 'createAndCount']);
-Route::put('/{makb}', [CtkhambenhController::class, 'update']);
-Route::delete('/{makb}', [CtkhambenhController::class, 'destroy']);
-Route::get('/mabn/{mabn}', [CtkhambenhController::class, 'getByMabn']);
-
 Route::get('/canls', [CanlamsangController::class, 'index']);          // Lấy danh sách cận lâm sàng
 Route::post('/canls', [CanlamsangController::class, 'store']);         // Thêm mới cận lâm sàng
 Route::get('/canls/{id}', [CanlamsangController::class, 'show']);      // Lấy chi tiết cận lâm sàng
