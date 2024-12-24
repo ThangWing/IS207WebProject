@@ -54,10 +54,10 @@ Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
 Route::delete('/ctba/{maba}/{mabl}', [CtbaController::class, 'destroy']);
 Route::get('/benhly/{maba}', [BenhlyController::class, 'getTenbl']);
 
-Route::get('/login', function (Request $request) {
+Route::get('/login', function () {
     
     $user = User::all();
-    return response()->json($user);
+    return response()->json($user, 200);
 });
 Route::post('/login', function (Request $request) {
     $request->validate([
