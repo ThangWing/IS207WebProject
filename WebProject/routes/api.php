@@ -11,7 +11,7 @@ use App\Http\Controllers\CtnhapvienController;
 use App\Http\Controllers\BenhlyController;
 use App\Http\Controllers\CanlamsangController;
 use App\Http\Controllers\thuocController;
-use App\Http\Controllers\HoadonController;
+use App\Http\Controllers\HoaDonController;
 use App\Http\Controllers\CtkhambenhController;
 use App\Http\Controllers\BhytController;
 use App\Http\Controllers\LichlamviecController;
@@ -71,6 +71,7 @@ Route::delete('/hsba/{mabn}/{maba}', [HsbaController::class, 'destroy']);
 Route::get('/doctors', [BacsiController::class, 'index']);
 Route::post('/doctors', [BacsiController::class, 'store']);
 Route::get('/doctors/{id}', [BacsiController::class, 'show']);
+Route::put('/doctors/{id}', [BacsiController::class, 'update']);
 Route::delete('/doctors/{id}', [BacsiController::class, 'destroy']);
 Route::get('bacsi/phongkham/{mapk}', [BacsiController::class, 'getDoctorsByClinic']);
 
@@ -146,19 +147,7 @@ Route::delete('/ctkhambenh/{id}', [CtkhambenhController::class, 'delete']);
 // Đếm số lượng khám bệnh trong ngày
 Route::get('/ctkhambenh/count-today', [CtkhambenhController::class, 'countToday']);
 
-Route::get('/phongkham', [PhongkhamController::class, 'index']);
-
-// Lấy thông tin chi tiết một phòng khám theo ID
-Route::get('/phongkham/{id}', [PhongkhamController::class, 'show']);
-
-// Thêm mới một phòng khám
-Route::post('/phongkham', [PhongkhamController::class, 'store']);
-
-// Cập nhật thông tin phòng khám
-Route::put('/phongkham/{id}', [PhongkhamController::class, 'update']);
-
-// Xóa một phòng khám
-Route::delete('/phongkham/{id}', [PhongkhamController::class, 'delete']);
+Route::apiResource('phongkham', PhongkhamController::class);
 
 Route::get('/pxn', [PhongxetnghiemController::class, 'index']);
 

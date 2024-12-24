@@ -20,6 +20,6 @@ class Khoa extends Model
 
     public function phongkham()
     {
-        return $this->hasMany(phongkham::class, 'makhoa', 'makhoa');
+        return $this->hasMany(phongkham::class, 'makhoa');
     }
 }

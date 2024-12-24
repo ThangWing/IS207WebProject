@@ -10,8 +10,8 @@ class PhongkhamController extends Controller
     // Hiển thị danh sách phòng khám
     public function index()
     {
-        $records = phongkham::with('khoa')->get(); // Lấy danh sách phòng khám cùng thông tin khoa
-        return response()->json($records); // Trả về JSON
+        $records = phongkham::with(['khoa'])->get(); // Lấy danh sách phòng khám cùng thông tin khoa
+        return response()->json($records,200); // Trả về JSON
     }
 
     // Hiển thị thông tin chi tiết một phòng khám
@@ -23,7 +23,7 @@ class PhongkhamController extends Controller
             return response()->json(['message' => 'Phòng khám không tồn tại'], 404);
         }
 
-        return response()->json($phongkham);
+        return response()->json($phongkham,200);
     }
 
     // Tạo mới một phòng khám

@@ -19,12 +19,12 @@ class Lichlamviec extends Model
     // Quan hệ với bảng BacSi
     public function bacsi()
     {
-        return $this->belongsTo(Bacsi::class, 'mabs', 'mabs');
+        return $this->belongsTo(Bacsi::class, 'mabs');
     }
 
     // Quan hệ với bảng PhongKham
     public function phongkham()
     {
-        return $this->belongsTo(phongkham::class, 'mapk', 'mapk');
+        return $this->belongsTo(phongkham::class, 'mapk');
     }
 }
