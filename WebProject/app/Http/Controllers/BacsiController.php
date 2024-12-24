@@ -9,7 +9,7 @@ use App\Models\phongkham;
 class BacsiController extends Controller
 {
     //
-    public function index()
+    public function index() 
     {
         $doctors = Bacsi::with('khoa','lichlamviec')->Get();
         return response()->json($doctors);
@@ -34,7 +34,7 @@ class BacsiController extends Controller
             'ngsinh' => 'required|date',
             'gioitinh' => 'required|string|max:10',
             'diachi' => 'required|string|max:100',
-            'sdt' => 'required|integer',
+            'sdt' => 'required|string|max:100',
             'email' => 'required|string|email|max:100|unique:bacsi',
             'hocvi' => 'required|string|max:50',
             'chucvu' => 'required|string|max:50',
@@ -69,8 +69,8 @@ class BacsiController extends Controller
             'ngsinh' => 'sometimes|required|date',
             'gioitinh' => 'sometimes|required|string|max:10',
             'diachi' => 'sometimes|required|string|max:100',
-            'sdt' => 'sometimes|required|integer',
-            'email' => 'sometimes|required|string|email|max:100|unique:bacsi,email,' . $id,
+            'sdt' => 'sometimes|required|string|max:100',
+            'email' => 'sometimes|required|string|email|max:100|unique:bacsi,email,' . $id . ',mabs',
             'hocvi' => 'sometimes|required|string|max:50',
             'chucvu' => 'sometimes|required|string|max:50',
             'makhoa' => 'sometimes|required|integer'
