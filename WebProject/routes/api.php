@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use App\Http\Controllers\BenhnhanController;
 use App\Http\Controllers\HsbaController;
 use App\Http\Controllers\CtclsController;
@@ -52,9 +54,20 @@ Route::put('/ctba/{maba}/{mabl}', [CtbaController::class, 'update']);
 Route::delete('/ctba/{maba}/{mabl}', [CtbaController::class, 'destroy']);
 Route::get('/benhly/{maba}', [BenhlyController::class, 'getTenbl']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('/login', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Invalid credentials'], 401);
+    }
+
+    return response()->json(['message' => 'Login successful', 'user' => $user]);
+});
 
 Route::get('/benhnhan', [BenhnhanController::class, 'index']);
 Route::post('/benhnhan', [BenhnhanController::class, 'store']);
