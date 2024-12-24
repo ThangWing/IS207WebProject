@@ -109,7 +109,7 @@ class HsbaController extends Controller
 
         $validated = $request->validate([
             'mabn' => 'sometimes|required|exists:benhnhan,mabn',
-            'nhapvien' => 'sometimes|required|integer',
+            'nhapvien' => 'sometimes|required|Integer',
             'chieucao' => 'nullable|string|max:200',
             'cannang' => 'nullable|string|max:200',
             'huyetap' => 'nullable|string|max:200',

@@ -13,9 +13,12 @@ class CtnhapvienController extends Controller
         $validated = $request->validate([
             'maba' => 'required|integer|exists:hsba,maba',
             'mapb' => 'required|integer|exists:phongbenh,mapb',
-            'ngnv' => 'required|date',
+            'ngnv' => 'nullable|date', // Cho phép null, vì sẽ gán giá trị mặc định nếu không gửi
             'ngxv' => 'nullable|date',
         ]);
+    
+        // Gán giá trị mặc định cho `ngnv` nếu không có trong request
+        $validated['ngnv'] = $validated['ngnv'] ?? now();
 
         $ctnhapvien = Ctnhapvien::create($validated);
 
