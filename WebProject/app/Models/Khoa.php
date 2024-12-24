@@ -17,4 +17,9 @@ class Khoa extends Model
         'tenkhoa',
         'trgkhoa',
     ];
+
+    public function phongkham()
+    {
+        return $this->hasMany(phongkham::class, 'makhoa', 'makhoa');
+    }
 }

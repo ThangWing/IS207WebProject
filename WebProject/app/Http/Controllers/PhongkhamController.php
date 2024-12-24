@@ -10,8 +10,8 @@ class PhongkhamController extends Controller
     // Hiển thị danh sách phòng khám
     public function index()
     {
-        $phongkham = phongkham::with('khoa')->get(); // Lấy danh sách phòng khám cùng thông tin khoa
-        return response()->json($phongkham); // Trả về JSON
+        $records = phongkham::with('khoa')->get(); // Lấy danh sách phòng khám cùng thông tin khoa
+        return response()->json($records); // Trả về JSON
     }
 
     // Hiển thị thông tin chi tiết một phòng khám

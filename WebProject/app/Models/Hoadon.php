@@ -6,18 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class HoaDon extends Model
 {
-    protected $table = 'hoadon';
+    protected $table = 'hoadon'; // Tên bảng
 
-    protected $primaryKey = 'mahd';
-    
-    public $incrementing = true;
+    protected $primaryKey = 'mahd'; // Khóa chính
+
+    public $incrementing = true; // Tự động tăng
+
+    public $timestamps = true; // Sử dụng `created_at` và `updated_at`
 
     protected $fillable = [
-        'maba',
-        'tong_tien',
-        'ghi_chu',
-        'trang_thai',
-        'thoi_gian_tao'
+        'maba',         // Mã bệnh án
+        'tong_tien',    // Tổng tiền
+        'ghi_chu',      // Ghi chú
+        'trang_thai',   // Trạng thái
     ];
 
     protected $dates = [
@@ -29,7 +30,7 @@ class HoaDon extends Model
     // Relationship với HSBA
     public function hsba()
     {
-        return $this->belongsTo(HSBA::class, 'hsba_id', 'id');
+        return $this->belongsTo(Hsba::class, 'maba');
     }
 
     // Tính tổng tiền từ CTCLS và đơn thuốc

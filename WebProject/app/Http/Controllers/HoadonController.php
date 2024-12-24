@@ -10,24 +10,29 @@ use Illuminate\Support\Facades\DB;
 
 class HoaDonController extends Controller
 {
+    public function index()
+    {
+        $records = Hoadon::with('hsba')->get(); // Lấy danh sách hóa đơn cùng thông tin hồ sơ bệnh án
+        return response()->json($records);
+    }
+
     // Thêm hóa đơn mới
     public function store(Request $request)
     {
         $request->validate([
-            'hsba_id' => 'required|exists:hsba,id',
+            'maba' => 'required|exists:hsba,maba',
             'ghi_chu' => 'nullable|string',
             'thoi_gian_tao' => 'nullable|date',
         ]);
 
-        $hoaDon = new HoaDon();
-        $hoaDon->ma_hoadon = 'HD' . time(); // Tạo mã hóa đơn tự động
-        $hoaDon->hsba_id = $request->hsba_id;
+        $hoaDon = new Hoadon();
+        $hoaDon->mahd = 'HD' . time(); // Tạo mã hóa đơn tự động
+        $hoaDon->maba = $request->maba;
         $hoaDon->ghi_chu = $request->ghi_chu;
         $hoaDon->trang_thai = 'chua_thanh_toan';
         $hoaDon->thoi_gian_tao = $request->thoi_gian_tao ?? Carbon::now(); // Nếu không có thời gian tạo thì lấy thời gian hiện tại
 
-        // Tính tổng tiền
-        $hoaDon->tong_tien = $hoaDon->tinhTongTien();
+        $hoaDon->tong_tien = $hoaDon->tinhTongTien(); // Hàm tính tổng tiền (bạn cần định nghĩa trong model)
 
         $hoaDon->save();
 
@@ -71,7 +76,7 @@ class HoaDonController extends Controller
             'trang_thai' => 'required|in:da_thanh_toan,chua_thanh_toan',
         ]);
 
-        $hoaDon = HoaDon::findOrFail($id);
+        $hoaDon = Hoadon::findOrFail($id);
         $hoaDon->trang_thai = $request->trang_thai;
         $hoaDon->save();
 

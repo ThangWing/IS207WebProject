@@ -17,6 +17,21 @@ class LichlamviecController extends Controller
         }
 }
 
+        public function showByMabs($mabs)
+        {
+            try {
+                $lichLamViec = Lichlamviec::where('mabs', $mabs)->with(['bacsi', 'phongkham'])->get();
+
+                if ($lichLamViec->isEmpty()) {
+                    return response()->json(['message' => 'Không tìm thấy lịch làm việc cho phòng khám này!'], 404);
+                }
+
+                return response()->json($lichLamViec);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }
+
     // Tạo mới một lịch làm việc
     public function store(Request $request)
     {

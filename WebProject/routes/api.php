@@ -28,6 +28,7 @@ Route::get('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecC
 Route::put('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'update']);
 Route::delete('/lichlamviec/{mabs}/{mapk}/{ngaylamviec}/{calamviec}', [LichlamviecController::class, 'destroy']);
 Route::get('/lichlamviec/phongkham/{mapk}', [LichlamviecController::class, 'showByMapk']);
+Route::get('/lichlamviec/phongkham/{mabs}', [LichlamviecController::class, 'showByMabs']);
 
 Route::get('/thuoc', [thuocController::class, 'index']);
 
@@ -71,6 +72,7 @@ Route::get('/doctors', [BacsiController::class, 'index']);
 Route::post('/doctors', [BacsiController::class, 'store']);
 Route::get('/doctors/{id}', [BacsiController::class, 'show']);
 Route::delete('/doctors/{id}', [BacsiController::class, 'destroy']);
+Route::get('bacsi/phongkham/{mapk}', [BacsiController::class, 'getDoctorsByClinic']);
 
 Route::post('/ctcls', [CtclsController::class, 'store']);
 Route::put('/ctcls/{maba}/{mapcn}', [CtclsController::class, 'update']);
@@ -97,7 +99,7 @@ Route::put('/benhly/{id}', [BenhlyController::class, 'update']);    // Cáº­p nhá
 Route::get('/hoadon', [HoadonController::class, 'index']);       // Get all invoices
 Route::post('/hoadon', [HoadonController::class, 'store']);      // Create a new invoice
 Route::get('/hoadon/{id}', [HoadonController::class, 'show']);   // Get details of a specific invoice
-Route::put('/hoadon/{id}', [HoadonController::class, 'update']); // Update a specific invoice
+Route::put('/hoadon/{id}', [HoadonController::class, 'updateStatus']); // Update a specific invoice
 Route::delete('/hoadon/{id}', [HoadonController::class, 'destroy']); // Delete a specific invoice
 
 Route::get('/', [CtkhambenhController::class, 'index']);

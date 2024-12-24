@@ -26,7 +26,7 @@ class Bacsi extends Model
 
     public function khoa()
     {
-        return $this->belongsTo(khoa::class, 'makhoa');
+        return $this->belongsTo(Khoa::class, 'makhoa');
     }
 
     public function lichlamviec()

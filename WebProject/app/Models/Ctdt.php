@@ -31,6 +31,6 @@ class Ctdt extends Model
 
     public function thuoc()
     {
-        return $this->belongsTo(Thuoc::class, 'mathuoc');
+        return $this->belongsTo(thuoc::class, 'mathuoc');
     }
 }

@@ -27,6 +27,6 @@ class phongxetnghiem extends Model
 
     public function canls()
     {
-        return $this->belongsTo(canlamsang::class, 'macls', 'macls');
+        return $this->belongsTo(canlamsang::class, 'macls');
     }
 }
