@@ -58,7 +58,13 @@ class BacsiController extends Controller
     // Cập nhật thông tin bác sĩ
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $doctor = Bacsi::findOrFail($id);
+
+        if (!$doctor) {
+            return response()->json(['message' => 'Bác sĩ không tồn tại'], 404);
+        }
+
+        $validated = $request->validate([
             'tenbs' => 'sometimes|required|string|max:100',
             'ngsinh' => 'sometimes|required|date',
             'gioitinh' => 'sometimes|required|string|max:10',
@@ -70,9 +76,11 @@ class BacsiController extends Controller
             'makhoa' => 'sometimes|required|integer'
         ]);
 
-        $doctor = Bacsi::findOrFail($id);
-        $doctor->update($request->all());
-        return response()->json($doctor);
+        $doctor->update($validated);
+        return response()->json([
+            'message' => 'Cập nhật thông tin thành công',
+            'data' => $doctor,
+        ], 200);
     }
 
     // Xóa bác sĩ
