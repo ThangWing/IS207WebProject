@@ -180,7 +180,7 @@ class HoaDonController extends Controller
         $thongKeQuyTruoc = $this->getThongKeQuyTruoc($nam, $quy);
         $soSanh = [
             'tang_giam_doanh_thu' => $tongQuy['tong_doanh_thu'] - $thongKeQuyTruoc['tong_doanh_thu'],
-            'phan_tram_tang_giam' => $thongKeQuyTruoc['tong_doanh_thu'] > 0 
+            'phan_tram_tang_giam' => $thongKeQuyTruoc['tong_doanh_thu'] > 0
                 ? (($tongQuy['tong_doanh_thu'] - $thongKeQuyTruoc['tong_doanh_thu']) / $thongKeQuyTruoc['tong_doanh_thu'] * 100)
                 : 0
         ];
